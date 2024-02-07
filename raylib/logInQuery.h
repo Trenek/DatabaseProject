@@ -1,0 +1,1 @@
+int logInQuery(char* bufforOUT, const char* login, const char* password);

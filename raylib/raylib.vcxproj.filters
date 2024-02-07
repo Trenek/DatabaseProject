@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query">
+      <UniqueIdentifier>{d289d2a8-be81-4ad6-9573-86bf21b74e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions">
+      <UniqueIdentifier>{07079584-12c4-4b0d-bafa-e485573f36e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions\isMouseInRange">
+      <UniqueIdentifier>{1433c1e4-2f13-4cf3-b4b6-f8e51603daa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions\drawMenuElement">
+      <UniqueIdentifier>{e31f5737-217d-4049-b5ed-be260d932222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions\modifyBackgroundColor">
+      <UniqueIdentifier>{b313c93a-be25-45fc-b696-2b534a422c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\state">
+      <UniqueIdentifier>{bb7ddb4e-22a8-42c1-ada9-6849cb552b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\AddUser">
+      <UniqueIdentifier>{1d3f00c7-d81b-46b4-bc58-2728325d5a36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions\inputBox">
+      <UniqueIdentifier>{95aae1f3-754b-4d14-92c9-1a537460189d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\GetUsers">
+      <UniqueIdentifier>{3fcb0846-28f9-40b5-b4ff-979073818551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\LogIn">
+      <UniqueIdentifier>{e2ad2aeb-2075-4e46-940d-34a40eabd53a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DatbaseProject.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="query.c">
+      <Filter>Pliki źródłowe\query</Filter>
+    </ClCompile>
+    <ClCompile Include="drawMenuElement.c">
+      <Filter>Pliki źródłowe\additions\drawMenuElement</Filter>
+    </ClCompile>
+    <ClCompile Include="modifyBackgroundColor.c">
+      <Filter>Pliki źródłowe\additions\modifyBackgroundColor</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="pause.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="register.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="AddUser.c">
+      <Filter>Pliki źródłowe\query\AddUser</Filter>
+    </ClCompile>
+    <ClCompile Include="play.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="playerList.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="inputBox.c">
+      <Filter>Pliki źródłowe\additions\inputBox</Filter>
+    </ClCompile>
+    <ClCompile Include="GetUsers.c">
+      <Filter>Pliki źródłowe\query\GetUsers</Filter>
+    </ClCompile>
+    <ClCompile Include="createGame.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="login.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="logInQuery.c">
+      <Filter>Pliki źródłowe\query\LogIn</Filter>
+    </ClCompile>
+    <ClCompile Include="logInQuery.h">
+      <Filter>Pliki źródłowe\query\LogIn</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="query.h">
+      <Filter>Pliki źródłowe\query</Filter>
+    </ClInclude>
+    <ClInclude Include="isMouseInRange.h">
+      <Filter>Pliki źródłowe\additions\isMouseInRange</Filter>
+    </ClInclude>
+    <ClInclude Include="drawMenuElement.h">
+      <Filter>Pliki źródłowe\additions\drawMenuElement</Filter>
+    </ClInclude>
+    <ClInclude Include="modifyBackgroundColor.h">
+      <Filter>Pliki źródłowe\additions\modifyBackgroundColor</Filter>
+    </ClInclude>
+    <ClInclude Include="position.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="state.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="AddUser.h">
+      <Filter>Pliki źródłowe\query\AddUser</Filter>
+    </ClInclude>
+    <ClInclude Include="inputBox.h">
+      <Filter>Pliki źródłowe\additions\inputBox</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="GetUsers.h">
+      <Filter>Pliki źródłowe\query\GetUsers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
