@@ -93,9 +93,6 @@
     <ClCompile Include="logInQuery.c">
       <Filter>Pliki źródłowe\query\LogIn</Filter>
     </ClCompile>
-    <ClCompile Include="logInQuery.h">
-      <Filter>Pliki źródłowe\query\LogIn</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">
@@ -127,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="GetUsers.h">
       <Filter>Pliki źródłowe\query\GetUsers</Filter>
+    </ClInclude>
+    <ClInclude Include="logInQuery.h">
+      <Filter>Pliki źródłowe\query\LogIn</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

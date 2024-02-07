@@ -143,7 +143,6 @@
     <ClCompile Include="inputBox.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="logInQuery.c" />
-    <ClCompile Include="logInQuery.h" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="modifyBackgroundColor.c" />
     <ClCompile Include="pause.c" />
@@ -160,6 +159,7 @@
     <ClInclude Include="GetUsers.h" />
     <ClInclude Include="inputBox.h" />
     <ClInclude Include="isMouseInRange.h" />
+    <ClInclude Include="logInQuery.h" />
     <ClInclude Include="modifyBackgroundColor.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="position.h" />

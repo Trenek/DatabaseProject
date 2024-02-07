@@ -11,7 +11,6 @@
 #include "modifyBackgroundColor.h"
 
 void play(enum state* state) {
-    
     Color color = { .a = 255, .b = 100, .r = 100, .g = 100 };
     Color color2 = { .a = 255, .b = 50, .g = 215, .r = 78 };
     Color color3 = { .a = 105, .b = 50, .g = 215, .r = 78 };
