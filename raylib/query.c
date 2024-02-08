@@ -3,16 +3,18 @@
 
 #include "query.h"
 
-static void showSQLError(unsigned int handleType, const SQLHANDLE *handle, char* query) {
+static void showSQLError(unsigned int handleType, const SQLHANDLE *handle, char* errorMessage) {
     SQLCHAR SQLState[1024];
-    //SQLCHAR message[1024];
+    SQLCHAR message[1024];
 
-    if (SQL_SUCCESS == SQLGetDiagRec((SQLSMALLINT)handleType, *handle, 1, SQLState, NULL, (SQLCHAR*)query, 1024, NULL)) {
-        printf("SQL driver message: %s\nSQL state: %s.\n", query, SQLState);
+    SQLCHAR* internalErrorMessage = (errorMessage == NULL) ? message : errorMessage;
+        
+    if (SQL_SUCCESS == SQLGetDiagRec((SQLSMALLINT)handleType, *handle, 1, SQLState, NULL, internalErrorMessage, 1024, NULL)) {
+        printf("SQL driver message: %s\nSQL state: %s.\n", internalErrorMessage, SQLState);
     }
 }
 
-static bool setupSQL(SQLHANDLE* SQLEnvHandle, SQLHANDLE* SQLConnectionHandle, SQLHANDLE* SQLStatementHandle, char* query) {
+static bool setupSQL(SQLHANDLE* SQLEnvHandle, SQLHANDLE* SQLConnectionHandle, SQLHANDLE* SQLStatementHandle, const char* query, char* errorMessage) {
     bool result = false;
 
     if (SQL_SUCCESS == SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, SQLEnvHandle))
@@ -23,18 +25,18 @@ static bool setupSQL(SQLHANDLE* SQLEnvHandle, SQLHANDLE* SQLConnectionHandle, SQ
         case SQL_NO_DATA_FOUND:
         case SQL_INVALID_HANDLE:
         case SQL_ERROR:
-            showSQLError(SQL_HANDLE_DBC, SQLConnectionHandle, query);
+            showSQLError(SQL_HANDLE_DBC, SQLConnectionHandle, errorMessage);
             break;
         default:
             if (SQL_SUCCESS == SQLAllocHandle(SQL_HANDLE_STMT, *SQLConnectionHandle, SQLStatementHandle))
             switch (SQLExecDirect(*SQLStatementHandle, (SQLCHAR*)query, SQL_NTS)) {
                 case SQL_SUCCESS_WITH_INFO:
-                    showSQLError(SQL_HANDLE_STMT, SQLStatementHandle, query);
+                    showSQLError(SQL_HANDLE_STMT, SQLStatementHandle, errorMessage);
                 case SQL_SUCCESS:
                     result = true;
                     break;
                 default:
-                    showSQLError(SQL_HANDLE_STMT, SQLStatementHandle, query);
+                    showSQLError(SQL_HANDLE_STMT, SQLStatementHandle, errorMessage);
             }
     }
 
@@ -48,13 +50,13 @@ static void clearSQL(SQLHANDLE* SQLEnvHandle, SQLHANDLE* SQLConnectionHandle, SQ
     SQLFreeHandle(SQL_HANDLE_ENV, *SQLEnvHandle);
 }
 
-int QUERY(char* query, int(*function)(SQLHANDLE, void*), void* message) {
+int QUERY(const char* query, char* errorMessage, int(*function)(SQLHANDLE, void*), void* message) {
     SQLHANDLE SQLEnvHandle = NULL;
     SQLHANDLE SQLConnectionHandle = NULL;
     SQLHANDLE SQLStatementHandle = NULL;
     int result = 0;
 
-    if (setupSQL(&SQLEnvHandle, &SQLConnectionHandle, &SQLStatementHandle, query)) {
+    if (setupSQL(&SQLEnvHandle, &SQLConnectionHandle, &SQLStatementHandle, query, errorMessage)) {
         if (function != 0) {
             result = function(SQLStatementHandle, message);
         }

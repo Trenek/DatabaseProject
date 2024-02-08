@@ -138,7 +138,10 @@
   <ItemGroup>
     <ClCompile Include="AddUser.c" />
     <ClCompile Include="createGame.c" />
+    <ClCompile Include="createGameSession.c" />
     <ClCompile Include="drawMenuElement.c" />
+    <ClCompile Include="gameSetup.c" />
+    <ClCompile Include="getGameSessions.c" />
     <ClCompile Include="GetUsers.c" />
     <ClCompile Include="inputBox.c" />
     <ClCompile Include="login.c" />
@@ -147,7 +150,7 @@
     <ClCompile Include="modifyBackgroundColor.c" />
     <ClCompile Include="pause.c" />
     <ClCompile Include="cube.c" />
-    <ClCompile Include="play.c" />
+    <ClCompile Include="loadGame.c" />
     <ClCompile Include="playerList.c" />
     <ClCompile Include="query.c" />
     <ClCompile Include="DatbaseProject.c" />
@@ -155,7 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddUser.h" />
+    <ClInclude Include="createGameSession.h" />
     <ClInclude Include="drawMenuElement.h" />
+    <ClInclude Include="getGameSessions.h" />
     <ClInclude Include="GetUsers.h" />
     <ClInclude Include="inputBox.h" />
     <ClInclude Include="isMouseInRange.h" />

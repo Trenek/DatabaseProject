@@ -10,9 +10,9 @@
 #include "GetUsers.h"
 
 void playerList(enum state* state) {
-    Color color = { .a = 255, .b = 100, .r = 100, .g = 100 };
-    Color color2 = { .a = 255, .b = 50, .g = 215, .r = 78 };
-    Color color3 = { .a = 105, .b = 50, .g = 215, .r = 78 };
+    Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
+    Color color2 = { .r = 78, .g = 215, .b = 50, .a = 255 };
+    Color color3 = { .r = 78, .g = 215, .b = 50, .a = 105 };
     struct player player[10];
     char buffer[128];
     int i = 0;
@@ -23,14 +23,13 @@ void playerList(enum state* state) {
     GetUsers(player, page);
     while (!WindowShouldClose() && *state == PLAYER_LIST) {
         BeginDrawing();
-        ClearBackground((Color) { .r = 0, .g = 0, .b = 0, .a = 0 });
-        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), color);
+        ClearBackground(color);
 
         drawMenuElement("Player List", 20, GetScreenWidth() >> 1, GetScreenHeight() >> 3, 10, 10, &color2, &color2);
 
         i = 0;
         while (i < 10) {
-            sprintf(buffer, player[i].id ? "%-3i.%-30s" : " ", player[i].id, player[i].name);
+            sprintf(buffer, player[i].id ? "%3i. %-30s" : " ", player[i].id, player[i].name);
             drawTextWithBoxBehind(buffer, 15, GetScreenWidth() >> 1, (GetScreenHeight() >> 3) + ((i + 1) * 33) + 30, 250, 30, &color2);
             i += 1;
         }

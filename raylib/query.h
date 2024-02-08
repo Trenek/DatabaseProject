@@ -6,4 +6,4 @@
 #include <sqltypes.h>
 #include <sql.h>
 
-int QUERY(char* query, int(*function)(SQLHANDLE, void*), void* message);
+int QUERY(const char* query, char* errorMessage, int(*function)(SQLHANDLE, void*), void* message);

@@ -1,1 +1,1 @@
-int logInQuery(char* bufforOUT, const char* login, const char* password);
+int logInQuery(char* errorMessage, const char* login, const char* password);

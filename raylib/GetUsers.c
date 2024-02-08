@@ -27,9 +27,9 @@ static int getUsers(SQLHANDLE SQLStatementHandle, void* message) {
 }
 
 int GetUsers(struct player* players, int i) {
-	char buffor[512];
+	char buffor[512] = { 0 };
 
 	sprintf(buffor, "EXEC [ShowUsers] %i", i);
 
-	return QUERY(buffor, getUsers, (void*)players);
+	return QUERY(buffor, NULL, getUsers, (void*)players);
 }

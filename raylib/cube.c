@@ -11,7 +11,7 @@
 #include "modifyBackgroundColor.h"
 
 void cube(enum state* state) {
-    static Color color = { .a = 255, .b = 100, .r = 100, .g = 100 };
+    static Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
     Color cube = { .r = 255, .g = 255, .b = 255, .a = 255 };
     static struct position cubePosition = { .x = 0, .y = 0, .incX = 1, .incY = 1 };
     char buffor[128];
@@ -21,7 +21,6 @@ void cube(enum state* state) {
         //ClearBackground(color);
         ClearBackground((Color) { .r = 0, .g = 0, .b = 0, .a = 0 });
         DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), color);
-
 
         sprintf(buffor, "RGBA = (%u, %u, %u, %u)", color.r, color.g, color.b, color.a);
         DrawText(buffor, 0, 0, 20, (Color) { .b = 42, .g = 58, .r = 45, .a = 255 });

@@ -5,13 +5,17 @@
 
 #include "query.h"
 
-void AddUser(char* bufforOUT, const char* login, const char* password, const char* email) {
-	char buffor[512];
+void AddUser(char* errorMessageOut, const char* login, const char* password, const char* email) {
+	char buffor[512] = { 0 };
+	char errorMessage[512] = { 0 };
+	char* pos = NULL;
 
+	*errorMessageOut = 0;
 	sprintf(buffor, "EXEC AddNewUser @login = '%s', @password = '%s', @email = '%s'", login, password, email);
-	QUERY(buffor, NULL, NULL);
+	QUERY(buffor, errorMessage, NULL, NULL);
 
-	if (strncmp(buffor, "EXEC AddNewUser @login = ", 25) != 0) {
-		strcpy(bufforOUT, strchr(buffor, ':') + 2);
+	if (*errorMessage != 0) {
+		pos = strchr(errorMessage, ':');
+		strcpy(errorMessageOut, pos ? pos + 2 : errorMessage);
 	}
 }

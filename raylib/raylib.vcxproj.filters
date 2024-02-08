@@ -43,6 +43,12 @@
     <Filter Include="Pliki źródłowe\query\LogIn">
       <UniqueIdentifier>{e2ad2aeb-2075-4e46-940d-34a40eabd53a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\query\createGameSession">
+      <UniqueIdentifier>{52af4511-958f-4a23-a94f-40d440da4729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\GetGameSessions">
+      <UniqueIdentifier>{f12572ca-c902-4800-9fdd-5008916413ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -72,7 +78,7 @@
     <ClCompile Include="AddUser.c">
       <Filter>Pliki źródłowe\query\AddUser</Filter>
     </ClCompile>
-    <ClCompile Include="play.c">
+    <ClCompile Include="loadGame.c">
       <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
     <ClCompile Include="playerList.c">
@@ -92,6 +98,15 @@
     </ClCompile>
     <ClCompile Include="logInQuery.c">
       <Filter>Pliki źródłowe\query\LogIn</Filter>
+    </ClCompile>
+    <ClCompile Include="createGameSession.c">
+      <Filter>Pliki źródłowe\query\createGameSession</Filter>
+    </ClCompile>
+    <ClCompile Include="gameSetup.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="getGameSessions.c">
+      <Filter>Pliki źródłowe\query\GetGameSessions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="logInQuery.h">
       <Filter>Pliki źródłowe\query\LogIn</Filter>
+    </ClInclude>
+    <ClInclude Include="createGameSession.h">
+      <Filter>Pliki źródłowe\query\createGameSession</Filter>
+    </ClInclude>
+    <ClInclude Include="getGameSessions.h">
+      <Filter>Pliki źródłowe\query\GetGameSessions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,0 +1,1 @@
+int createGameSession(const char* saveName, int creatorID, char* errorMessage);

@@ -15,15 +15,19 @@ static int logInCheck(SQLHANDLE SQLStatementHandle, void* message) {
 	return ID;
 }
 
-int logInQuery(char* bufforOUT, const char* login, const char* password) {
-	char buffor[512];
+int logInQuery(char* errorMessageOut, const char* login, const char* password) {
+	char buffor[512] = { 0 };
+	char errorMessage[512] = { 0 };
 	int ID = 0;
+	char* pos = 0;
 
+	*errorMessageOut = 0;
 	sprintf(buffor, "EXEC [Login] @login = '%s', @password = '%s'", login, password);
-	ID = QUERY(buffor, logInCheck, NULL);
+	ID = QUERY(buffor, errorMessage, logInCheck, NULL);
 
-	if (ID == 0) {
-		strcpy(bufforOUT, strchr(buffor, ':') + 2);
+	if (*errorMessage != 0) {
+		pos = strchr(errorMessage, ':');
+		strcpy(errorMessageOut, pos ? pos + 2 : errorMessage);
 	}
 
 	return ID;

@@ -33,6 +33,10 @@ int updateInputBox(struct inputBox* input) {
     static int backspace = 0;
     static int interval = 0;
 
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        input->clicked = CheckCollisionPointRec(GetMousePosition(), input->coordinates);
+    }
+
     if (input->clicked) {
         while ((key = GetCharPressed()) > 0) {
             if (BETWEEN(key, 32, 125) && (input->length < MAX_INPUT_CHARS)) {

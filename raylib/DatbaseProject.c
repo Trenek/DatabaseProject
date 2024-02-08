@@ -6,18 +6,19 @@
 #include "state.h"
 
 int loggedInID = 0;
+int gameSessionID = 0;
 
 int main(void) {
     enum state state = MENU;
-    void (*function[])(enum state* state) = { 
-        [MENU] = menu, 
-        [PLAY] = play, 
-        [REGISTER] = Register, 
-        [CUBE] = cube, 
-        [PLAYER_LIST] = playerList, 
-        [CREATE_NEW_GAME] = createGame, 
-        [LOAD_GAME] = play, 
-        [LOGIN] = login
+    void (*function[])(enum state* state) = {
+        [MENU] = menu,
+        [LOAD_GAME] = loadGame,
+        [REGISTER] = Register,
+        [CUBE] = cube,
+        [PLAYER_LIST] = playerList,
+        [CREATE_NEW_GAME] = createGame,
+        [LOGIN] = login,
+        [GAME_SETUP] = gameSetup
     };
 
     InitWindow(800, 600, "Project");
