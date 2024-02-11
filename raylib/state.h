@@ -27,6 +27,7 @@ void menu(enum state* state);
 void loadGame(enum state* state);
 void cube(enum state* state);
 void pause(enum state* state, Color* color, struct position cubePosition);
+void Pause(enum state* state, enum state resumeState, RenderTexture* screenCamera1, Rectangle* splitScreenRect);
 void Register(enum state* state);
 void playerList(enum state* state);
 void createGame(enum state* state);

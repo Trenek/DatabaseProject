@@ -8,7 +8,7 @@
 int loggedInID = 0;
 int gameSessionID = 0;
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 int main(void) {
     enum state state = MENU;
@@ -37,7 +37,7 @@ int main(void) {
         function[state](&state);
     }
 
-    rlCloseWindow();
+    CloseWindow();
 
     return 0;
 }

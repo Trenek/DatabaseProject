@@ -9,34 +9,6 @@
 
 #include "drawMenuElement.h"
 
-static void Pause(enum state* state) {
-    Color color1 = { .r = 100, .g = 100, .b = 100, .a = 200 };
-    Color color2 = { .r = 0, .g = 0, .b = 0, .a = 255 };
-
-    *state = PAUSE;
-    do {
-        BeginDrawing();
-
-        ClearBackground(color1);
-
-        drawMenuElement("Paused", 40, GetScreenWidth() >> 1, GetScreenHeight() >> 1, 10, 10, NULL, NULL);
-
-        drawMenuElement("Resume", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 80, 10, 10, NULL, &color2);
-        drawMenuElement("Exit to Menu", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 130, 10, 10, NULL, &color2);
-        drawMenuElement("Exit", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 180, 10, 10, NULL, &color2);
-        EndDrawing();
-
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            clickAndChangeState(state, "Resume", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 80, 10, 10, MAP_DEBUG);
-            clickAndChangeState(state, "Exit to Menu", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 130, 10, 10, MENU);
-            clickAndChangeState(state, "Exit", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 180, 10, 10, EXIT);
-        }
-        if (IsKeyPressed(KEY_P)) {
-            *state = MAP_DEBUG;
-        }
-    } while (*state == PAUSE && !WindowShouldClose());
-}
-
 #include <stdlib.h>
 #include <math.h>
 
@@ -95,21 +67,6 @@ void DrawHexGridOutline(double radius, int width, int height, struct GridTile** 
     }
 };
 
-bool CheckCollisionPointPoly2(Vector2 point, Vector2* points, int pointCount) {
-    bool inside = false;
-
-    if (pointCount > 2) {
-        for (int i = 0, j = pointCount - 1; i < pointCount; j = i++) {
-            if ((points[i].y > point.y) != (points[j].y > point.y) &&
-                (point.x < (points[j].x - points[i].x) * (point.y - points[i].y) / (points[j].y - points[i].y) + points[i].x)) {
-                inside = !inside;
-            }
-        }
-    }
-
-    return inside;
-}
-
 bool check(Vector2 center, double radius, Camera2D camera) {
     Vector2 mouse = GetMousePosition();
 
@@ -134,7 +91,7 @@ bool check(Vector2 center, double radius, Camera2D camera) {
         [5] = (Vector2) {.x = center.x - horiz, .y = center.y - vert},
     };
 
-    return CheckCollisionPointPoly2(mouse, array, 6);
+    return CheckCollisionPointPoly(mouse, array, 6);
 }
 
 void checkClick(int height, int width, int radius, struct GridTile** grid, Vector2* clicked, Camera2D camera) {
@@ -237,7 +194,7 @@ void mapDebug(enum state* state) {
         }
 
         if (IsKeyPressed(KEY_P)) {
-            Pause(state);
+            Pause(state, MAP_DEBUG, &screenCamera1, &splitScreenRect);
         }
     }
 
