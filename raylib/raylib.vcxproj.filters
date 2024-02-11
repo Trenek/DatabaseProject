@@ -108,6 +108,9 @@
     <ClCompile Include="getGameSessions.c">
       <Filter>Pliki źródłowe\query\GetGameSessions</Filter>
     </ClCompile>
+    <ClCompile Include="mapDebug.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">

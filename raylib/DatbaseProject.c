@@ -8,6 +8,8 @@
 int loggedInID = 0;
 int gameSessionID = 0;
 
+#define FULLSCREEN
+
 int main(void) {
     enum state state = MENU;
     void (*function[])(enum state* state) = {
@@ -18,10 +20,16 @@ int main(void) {
         [PLAYER_LIST] = playerList,
         [CREATE_NEW_GAME] = createGame,
         [LOGIN] = login,
-        [GAME_SETUP] = gameSetup
+        [GAME_SETUP] = gameSetup,
+        [MAP_DEBUG] = mapDebug
     };
 
     InitWindow(800, 600, "Project");
+#ifdef FULLSCREEN
+    int display = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(display), GetMonitorHeight(display));
+    ToggleFullscreen();
+#endif
 
     SetTargetFPS(240);
 

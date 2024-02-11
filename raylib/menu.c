@@ -27,6 +27,7 @@ void menu(enum state* state) {
         drawMenuElement("Play", 20, GetScreenWidth() >> 1, GetScreenHeight() >> 1, 10, 10, &color2, &color3);
         drawMenuElement("Register", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 50, 10, 10, &color2, &color3);
         drawMenuElement("Player List", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 100, 10, 10, &color2, &color3);
+        drawMenuElement("Map Debug", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 150, 10, 10, &color2, &color3);
         drawMenuElement("Exit", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 200, 10, 10, &color2, &color3);
         drawMenuElement("Cube", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 250, 10, 10, &color2, &color3);
 
@@ -44,6 +45,7 @@ void menu(enum state* state) {
             clickAndChangeState(state, "Play", 20, GetScreenWidth() >> 1, GetScreenHeight() >> 1, 10, 10, loggedInID == 0 ? LOGIN : LOAD_GAME);
             clickAndChangeState(state, "Register", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 50, 10, 10, REGISTER);
             clickAndChangeState(state, "Player List", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 100, 10, 10, PLAYER_LIST);
+            clickAndChangeState(state, "Map Debug", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 150, 10, 10, MAP_DEBUG);
             clickAndChangeState(state, "Exit", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 200, 10, 10, EXIT);
             clickAndChangeState(state, "Cube", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 250, 10, 10, CUBE);
 
