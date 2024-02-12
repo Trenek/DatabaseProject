@@ -141,8 +141,13 @@
     <ClCompile Include="createGameSession.c" />
     <ClCompile Include="drawMenuElement.c" />
     <ClCompile Include="gameSetup.c" />
+    <ClCompile Include="GetCivilizations.c" />
     <ClCompile Include="getGameSessions.c" />
+    <ClCompile Include="GetPoliticalDivision.c" />
+    <ClCompile Include="GetProvinces.c" />
+    <ClCompile Include="GetTerrain.c" />
     <ClCompile Include="GetUsers.c" />
+    <ClCompile Include="GridTileDef.c" />
     <ClCompile Include="inputBox.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="logInQuery.c" />
@@ -153,6 +158,7 @@
     <ClCompile Include="cube.c" />
     <ClCompile Include="loadGame.c" />
     <ClCompile Include="playerList.c" />
+    <ClCompile Include="ProvinceTextures.c" />
     <ClCompile Include="query.c" />
     <ClCompile Include="DatbaseProject.c" />
     <ClCompile Include="register.c" />
@@ -161,14 +167,19 @@
     <ClInclude Include="AddUser.h" />
     <ClInclude Include="createGameSession.h" />
     <ClInclude Include="drawMenuElement.h" />
+    <ClInclude Include="GetCivilizations.h" />
     <ClInclude Include="getGameSessions.h" />
+    <ClInclude Include="GetPoliticalDivision.h" />
+    <ClInclude Include="GetProvinces.h" />
+    <ClInclude Include="GetTerrain.h" />
     <ClInclude Include="GetUsers.h" />
+    <ClInclude Include="GridTileDef.h" />
     <ClInclude Include="inputBox.h" />
     <ClInclude Include="isMouseInRange.h" />
     <ClInclude Include="logInQuery.h" />
     <ClInclude Include="modifyBackgroundColor.h" />
-    <ClInclude Include="player.h" />
     <ClInclude Include="position.h" />
+    <ClInclude Include="ProvinceTextures.h" />
     <ClInclude Include="query.h" />
     <ClInclude Include="state.h" />
   </ItemGroup>

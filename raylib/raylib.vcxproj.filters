@@ -49,6 +49,24 @@
     <Filter Include="Pliki źródłowe\query\GetGameSessions">
       <UniqueIdentifier>{f12572ca-c902-4800-9fdd-5008916413ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\query\GetTerrain">
+      <UniqueIdentifier>{69f76fd0-13b7-4b4f-bbf8-356123991e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\GetProvinces">
+      <UniqueIdentifier>{ee4780e9-859f-4d20-a23d-092330d48d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\GridTile">
+      <UniqueIdentifier>{f3e44122-4711-4bbc-a82a-d0ee12dd8f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions\ProvinceTextures">
+      <UniqueIdentifier>{1d49fed9-4afd-4d82-b780-08b1fe4cf441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\GetCivilizations">
+      <UniqueIdentifier>{4c735ccb-ebab-4d71-8e27-8957a409ded7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\GetPoliticalDivision">
+      <UniqueIdentifier>{d28b750f-ea83-4564-9663-1cc8c31fb9ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -111,6 +129,24 @@
     <ClCompile Include="mapDebug.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="GetTerrain.c">
+      <Filter>Pliki źródłowe\query\GetTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="GetProvinces.c">
+      <Filter>Pliki źródłowe\query\GetProvinces</Filter>
+    </ClCompile>
+    <ClCompile Include="GridTileDef.c">
+      <Filter>Pliki nagłówkowe\GridTile</Filter>
+    </ClCompile>
+    <ClCompile Include="ProvinceTextures.c">
+      <Filter>Pliki źródłowe\additions\ProvinceTextures</Filter>
+    </ClCompile>
+    <ClCompile Include="GetCivilizations.c">
+      <Filter>Pliki źródłowe\query\GetCivilizations</Filter>
+    </ClCompile>
+    <ClCompile Include="GetPoliticalDivision.c">
+      <Filter>Pliki źródłowe\query\GetPoliticalDivision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">
@@ -137,9 +173,6 @@
     <ClInclude Include="inputBox.h">
       <Filter>Pliki źródłowe\additions\inputBox</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="GetUsers.h">
       <Filter>Pliki źródłowe\query\GetUsers</Filter>
     </ClInclude>
@@ -151,6 +184,24 @@
     </ClInclude>
     <ClInclude Include="getGameSessions.h">
       <Filter>Pliki źródłowe\query\GetGameSessions</Filter>
+    </ClInclude>
+    <ClInclude Include="GetTerrain.h">
+      <Filter>Pliki źródłowe\query\GetTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="GetProvinces.h">
+      <Filter>Pliki źródłowe\query\GetProvinces</Filter>
+    </ClInclude>
+    <ClInclude Include="GridTileDef.h">
+      <Filter>Pliki nagłówkowe\GridTile</Filter>
+    </ClInclude>
+    <ClInclude Include="ProvinceTextures.h">
+      <Filter>Pliki źródłowe\additions\ProvinceTextures</Filter>
+    </ClInclude>
+    <ClInclude Include="GetCivilizations.h">
+      <Filter>Pliki źródłowe\query\GetCivilizations</Filter>
+    </ClInclude>
+    <ClInclude Include="GetPoliticalDivision.h">
+      <Filter>Pliki źródłowe\query\GetPoliticalDivision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

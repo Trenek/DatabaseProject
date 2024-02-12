@@ -1,130 +1,14 @@
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-
-#include "raylib.h"
-
-#include "state.h"
-#include "position.h"
-
-#include "drawMenuElement.h"
-
-#include <stdlib.h>
 #include <math.h>
 
 #include "raylib.h"
 
-struct GridTile {
-    Vector2 screen_coordinates;
-    Color color;
-    Texture2D* texture;
-    bool isClicked;
-};
+#include "state.h"
+#include "GridTileDef.h"
 
-void GenerateHexGrid(int radius, int width, int height, struct GridTile** grid) {
-    float horiz = sqrtf(3) * radius;
-    float vert = (3.0 / 2.0) * radius;
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            grid[x][y].screen_coordinates.x = (horiz * (x + ((y & 1) ? 0.5 : 0))) + 100;
-            grid[x][y].screen_coordinates.y = (vert * y) + 100;
-        }
-    }
-};
-
-void DrawVisibleFields(double radius, int width, int height, struct GridTile** grid) {
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius;
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            DrawTextureEx(*grid[x][y].texture, (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0, WHITE);
-            if (grid[x][y].isClicked) {
-                DrawPoly(grid[x][y].screen_coordinates, 6, radius, 90, (Color) {.r = 0, .g = 0, .b = 0, .a = 125});
-            }
-        }
-    }
-};
-
-void DEBUG_DrawCoordinatesOnHexGrid(double radius, int width, int height, struct GridTile** grid) {
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            DrawText(TextFormat("y: %d", y), grid[x][y].screen_coordinates.x - (radius / 2), grid[x][y].screen_coordinates.y, radius / 2, LIME);
-            DrawText(TextFormat("x: %d", x), grid[x][y].screen_coordinates.x - (radius / 2), grid[x][y].screen_coordinates.y - (radius / 2), radius / 2, VIOLET);
-        }
-    }
-};
-
-void DrawHexGridOutline(double radius, int width, int height, struct GridTile** grid) {
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            DrawPolyLines(grid[x][y].screen_coordinates, 6, radius, 90,
-                //BROWN
-                BLACK
-            );
-        }
-    }
-};
-
-bool check(Vector2 center, double radius, Camera2D camera) {
-    Vector2 mouse = GetMousePosition();
-
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius / 2.0;
-
-    mouse.x -= camera.offset.x;
-    mouse.y -= camera.offset.y;
-
-    mouse.x /= camera.zoom;
-    mouse.y /= camera.zoom;
-
-    mouse.x += camera.target.x;
-    mouse.y += camera.target.y;
-
-    Vector2 array[6] = {
-        [0] = (Vector2) {.x = center.x, .y = center.y - radius},
-        [1] = (Vector2) {.x = center.x + horiz, .y = center.y - vert},
-        [2] = (Vector2) {.x = center.x + horiz, .y = center.y + vert},
-        [3] = (Vector2) {.x = center.x, .y = center.y + radius},
-        [4] = (Vector2) {.x = center.x - horiz, .y = center.y + vert},
-        [5] = (Vector2) {.x = center.x - horiz, .y = center.y - vert},
-    };
-
-    return CheckCollisionPointPoly(mouse, array, 6);
-}
-
-void checkClick(int height, int width, int radius, struct GridTile** grid, Vector2* clicked, Camera2D camera) {
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            grid[x][y].isClicked = check(grid[x][y].screen_coordinates, radius, camera);
-        }
-    }
-}
-
-struct GridTile** allocGridTile(int width, int height, Texture2D* texture) {
-    struct GridTile** grid = malloc(width * sizeof(struct GridTile*));
-
-    for (int x = 0; x < width; x++) {
-        grid[x] = malloc(height * sizeof(struct GridTile));
-    }
-
-    for (int x = 0; x < width; x += 1) {
-        for (int y = 0; y < height; y += 1) {
-            grid[x][y].color = BEIGE;
-            grid[x][y].texture = texture;
-        }
-    }
-
-    return grid;
-}
-
-static void drawSomething(double radius, int width, int height, struct GridTile** grid) {
-    GenerateHexGrid(radius, width, height, grid);
-    DrawVisibleFields(radius, width, height, grid);
-    DrawHexGridOutline(radius, width, height, grid);
-    //DEBUG_DrawCoordinatesOnHexGrid(radius, width, height, grid);
-}
+#include "drawMenuElement.h"
+#include "ProvinceTextures.h"
+#include "GetCivilizations.h"
+#include "GetPoliticalDivision.h"
 
 void mapDebug(enum state* state) {
     Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
@@ -133,6 +17,7 @@ void mapDebug(enum state* state) {
     int radius = 40;
     int frontSize = 40;
     Vector2 chosen = { 0, 0 };
+    int size = 0;
 
     float one = GetScreenWidth() / ((sqrtf(3) * radius) * (width + 3));
     float two = GetScreenHeight() / ((3.0 * radius / 2.0) * (float)(height + 3));
@@ -150,11 +35,24 @@ void mapDebug(enum state* state) {
     RenderTexture screenCamera1 = LoadRenderTexture(GetScreenWidth(), GetScreenHeight() + 20);
     Rectangle splitScreenRect = { 0.0f, 0.0f, (float)screenCamera1.texture.width, (float)-screenCamera1.texture.height };
 
-    Image image = LoadImage("assets/FlatTerrain.png");
-    Texture2D texture = LoadTextureFromImage(image);
+    Texture2D* texture = LoadTextures(&size);
+    Texture2D city[2];
+
+    Image image = LoadImage("assets/City.png");
+    city[0] = LoadTextureFromImage(image);
+    UnloadImage(image);
+    image = LoadImage("assets/CapitalCity.png");
+    city[1] = LoadTextureFromImage(image);
     UnloadImage(image);
 
-    struct GridTile** grid = allocGridTile(width, height, &texture);
+    struct GridTile** grid = allocGridTile(width, height, texture);
+
+    int count = 0;
+    struct Civilization* civilizations = GetCivilizations(&count, 1);
+
+    bool political = true;
+
+    GetPoliticalDivision(grid, 1);
 
     while (!WindowShouldClose() && *state == MAP_DEBUG) {
         if (IsKeyDown(KEY_A)) camera1.offset.x += 1 / camera1.zoom;
@@ -169,14 +67,22 @@ void mapDebug(enum state* state) {
 
         if (IsKeyDown(KEY_Q)) camera1.zoom += 0.01;
         if (IsKeyDown(KEY_E)) camera1.zoom -= 0.01;
-        camera1.zoom += GetMouseWheelMove() / 16;
+        camera1.zoom += (GetMouseWheelMove() * camera1.zoom / 16);
+        if (camera1.zoom < 0.1) camera1.zoom = 0.1;
+        if (camera1.zoom > 10) camera1.zoom = 10;
 
         BeginTextureMode(screenCamera1);
             ClearBackground(BROWN);
 
             BeginMode2D(camera1);
-                drawSomething(radius, width, height, grid);
-                drawMenuElement("Choose Your Country Fellow Citizen", frontSize, sqrtf(3) * radius * width / 2,  0, 10, 10, NULL, NULL);
+                GenerateHexGrid(radius, width, height, grid);
+                DrawVisibleFields(radius, width, height, grid, texture[size - 1]);
+                if (political) DrawPoliticalDivision(radius, width, height, grid, civilizations);
+                DrawCity(radius, width, height, grid, city);
+                DrawPoliticalGridOutline(radius, width, height, grid);
+                DrawHexGridOutline(radius, width, height, grid);
+                //DEBUG_DrawCoordinatesOnHexGrid(radius, width, height, grid);
+                drawMenuElement("Choose Your Country Fellow Citizen", frontSize, sqrtf(3) * radius * width / 2, 0, 10, 10, NULL, NULL);
                 //DrawTexture(texture, GetScreenWidth() / 2 - texture.width / 2, GetScreenHeight() / 2 - texture.height / 2, WHITE);
                 //DrawTextureEx(texture, (Vector2) { .x = 100 - horiz, .y = 100 - vert }, 0, (radius << 1) / 2579.0, WHITE);
             EndMode2D();
@@ -196,8 +102,14 @@ void mapDebug(enum state* state) {
         if (IsKeyPressed(KEY_P)) {
             Pause(state, MAP_DEBUG, &screenCamera1, &splitScreenRect);
         }
+
+        if (IsKeyPressed(KEY_M)) {
+            political = !political;
+        }
     }
 
     UnloadRenderTexture(screenCamera1); // Unload render texture
-    UnloadTexture(texture);
+    UnloadTextures(texture, size);
+    UnloadTexture(city[0]);
+    UnloadTexture(city[1]);
 }

@@ -1,0 +1,1 @@
+char** GetTerrain(int* size);
