@@ -1,8 +1,6 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 
-#include "raylib.h"
+#include <raylib.h>
 
 void LoadingScreen(int current, int max) {
     char buffor[8] = { 0 };

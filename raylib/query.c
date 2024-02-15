@@ -7,7 +7,7 @@ static void showSQLError(unsigned int handleType, const SQLHANDLE *handle, char*
     SQLCHAR SQLState[1024];
     SQLCHAR message[1024];
 
-    SQLCHAR* internalErrorMessage = (errorMessage == NULL) ? message : errorMessage;
+    SQLCHAR* internalErrorMessage = (errorMessage == NULL) ? message : (SQLCHAR*)errorMessage;
         
     if (SQL_SUCCESS == SQLGetDiagRec((SQLSMALLINT)handleType, *handle, 1, SQLState, NULL, internalErrorMessage, 1024, NULL)) {
         printf("SQL driver message: %s\nSQL state: %s.\n", internalErrorMessage, SQLState);

@@ -1,12 +1,9 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 #include <string.h>
 
 #include "query.h"
 
 int AddPlayer(char* errorMessageOut, int gameSession, int userID) {
-	int nr = 0;
 	char buffor[256];
 	char errorMessage[256] = "";
 

@@ -1,4 +1,4 @@
-#include "raylib.h"
+#include <raylib.h>
 
 void modifyBackgroundColor(Color* color) {
     if (IsKeyDown(KEY_RIGHT)) {

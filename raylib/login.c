@@ -1,9 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 #include <string.h>
 
-#include "raylib.h"
+#include <raylib.h>
 
 #include "state.h"
 #include "inputBox.h"

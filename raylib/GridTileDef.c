@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "raylib.h"
+#include <raylib.h>
 
 #include "GridTileDef.h"
 #include "GetProvinces.h"
@@ -159,9 +159,6 @@ void DrawCity(int radius, int width, int height, struct GridTile** grid, Texture
 
 
 void DrawPoliticalDivision(int radius, int width, int height, struct GridTile** grid, struct Civilization* civilizations) {
-    float horiz = sqrtf(3) * radius / 2.0f;
-    int vert = radius;
-
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (grid[x][y].civilizationID > 0)

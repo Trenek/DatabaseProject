@@ -1,5 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 
 #include "query.h"
@@ -10,7 +8,6 @@ struct player {
 	int* playerID;
 };
 
-/**/
 static int showPlayer(SQLHANDLE SQLStatementHandle, void* message) {
 	struct player player = *(struct player*)message;
 	long long int nr = 0;
@@ -32,7 +29,6 @@ static int showPlayer(SQLHANDLE SQLStatementHandle, void* message) {
 }
 
 int ShowPlayer(char* playerName, char* civilizationName, int* playerID, int gameSession, int position) {
-	int nr = 0;
 	char buffor[256];
 
 	sprintf(buffor, "EXECUTE dbo.[ShowPlayer] %i, %i", gameSession, position);

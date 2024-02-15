@@ -1,7 +1,7 @@
 #ifndef BAJOJAJO
 #define BAJOJAJO
 
-#include "raylib.h"
+#include <raylib.h>
 
 #define BETWEEN(x, min, max) ((x) >= (min) && (x) <= (max))
 

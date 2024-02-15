@@ -1,37 +1,25 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
-#include "raylib.h"
+#include <raylib.h>
 
 #include "state.h"
 #include "gameInformations.h"
+#include "GridTileDef.h"
 
 #include "drawMenuElement.h"
 #include "ShowPlayer.h"
 #include "inputBox.h"
+#include "ProvinceTextures.h"
+#include "LoadingScreen.h"
 
 #include "logInQuery.h"
 #include "AddUser.h"
 #include "AddPlayer.h"
-
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-
-#include "raylib.h"
-
-#include "state.h"
-#include "GridTileDef.h"
-
-#include "drawMenuElement.h"
-#include "ProvinceTextures.h"
 #include "GetCivilizations.h"
 #include "GetPoliticalDivision.h"
-#include "LoadingScreen.h"
 #include "AssignCivilization.h"
 
 inline void addCityTexture(Texture2D* city, int size) {
@@ -61,7 +49,6 @@ inline Camera2D createCamera(int width, int height, int radius) {
 }
 
 static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city) {
-    Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
     Color color2 = { .r = 78, .g = 215, .b = 50, .a = 255 };
     Color color3 = { .r = 78, .g = 215, .b = 50, .a = 105 };
     const int width = 25;
