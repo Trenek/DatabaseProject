@@ -162,7 +162,7 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
     UnloadRenderTexture(screenCamera1);
 }
 
-static int addPlayer() {
+static int addPlayer(void) {
     int exit = 0;
     Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
     Color color2 = { .r = 78, .g = 215, .b = 50, .a = 255 };
