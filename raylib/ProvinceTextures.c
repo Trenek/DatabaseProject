@@ -20,6 +20,20 @@ static void LoadingScreen(int current, int max) {
     EndDrawing();
 }
 
+void addCityTexture(Texture2D* city, int size) {
+    Image image;
+
+    LoadingScreen(size, size + 2);
+    image = LoadImage("assets/City.png");
+    city[0] = LoadTextureFromImage(image);
+    UnloadImage(image);
+    LoadingScreen(size + 1, size + 2);
+    image = LoadImage("assets/CapitalCity.png");
+    city[1] = LoadTextureFromImage(image);
+    LoadingScreen(size + 2, size + 2);
+    UnloadImage(image);
+}
+
 Texture2D* LoadTextures(int* size) {
     Image image;
     int i = 0;

@@ -16,8 +16,6 @@ static int getCivilizations(SQLHANDLE SQLStatementHandle, void* message) {
 		SQLGetData(SQLStatementHandle, 3, SQL_C_DEFAULT, &rgba, sizeof(rgba), NULL);
 		SQLGetData(SQLStatementHandle, 4, SQL_C_DEFAULT, two[index].name, sizeof(two[index].name), NULL);
 		two[index].color = GetColor((unsigned int)rgba);
-
-		printf("\n%2lli: %3i, %X, %s", index, two[index].CivilizationID, rgba, two[index].name);
 	}
 
 	return 0;

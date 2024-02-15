@@ -180,6 +180,7 @@
     <ClInclude Include="AddPlayer.h" />
     <ClInclude Include="AddUser.h" />
     <ClInclude Include="AssignCivilization.h" />
+    <ClInclude Include="createCamera.h" />
     <ClInclude Include="createGameSession.h" />
     <ClInclude Include="drawMenuElement.h" />
     <ClInclude Include="gameInformations.h" />

@@ -12,32 +12,7 @@
 #include "GetCivilizations.h"
 #include "GetPoliticalDivision.h"
 #include "LoadingScreen.h"
-
-inline void addCityTexture(Texture2D* city, int size) {
-    Image image;
-
-    LoadingScreen(size, size + 2);
-    image = LoadImage("assets/City.png");
-    city[0] = LoadTextureFromImage(image);
-    UnloadImage(image);
-    LoadingScreen(size + 1, size + 2);
-    image = LoadImage("assets/CapitalCity.png");
-    city[1] = LoadTextureFromImage(image);
-    LoadingScreen(size + 2, size + 2);
-    UnloadImage(image);
-}
-
-inline Camera2D createCamera(int width, int height, int radius) {
-    float one = GetScreenWidth() / ((sqrtf(3) * radius) * (width + 3));
-    float two = GetScreenHeight() / ((3 * radius * (height + 3)) / 2.0f);
-
-    return (Camera2D) {
-        .target = (Vector2){ 950, 800 },
-        .offset = (Vector2){ GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f },
-        .rotation = 0.0f,
-        .zoom = two > one ? one : two
-    };
-}
+#include "createCamera.h"
 
 void mapDebug(enum state* state) {
     const int width = 25;
@@ -104,6 +79,7 @@ void mapDebug(enum state* state) {
         BeginDrawing();
         ClearBackground(BROWN);
         DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
+        DrawText(TextFormat("%.0f, %.0f, %.0f, %.0f, %.0%%f", camera1.offset.x, camera1.offset.y, camera1.target.x, camera1.target.y, camera1.zoom * 100), 0, 0, 40, BLACK);
 
         EndDrawing();
 

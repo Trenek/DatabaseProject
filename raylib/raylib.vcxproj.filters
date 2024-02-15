@@ -82,6 +82,9 @@
     <Filter Include="Pliki źródłowe\query\AssignCivilization">
       <UniqueIdentifier>{d6874119-b430-4049-800a-914a5ed2a39b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\additions\createCamera">
+      <UniqueIdentifier>{0cb45cba-529d-4121-9f29-fb22de057aef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="AssignCivilization.h">
       <Filter>Pliki źródłowe\query\AssignCivilization</Filter>
+    </ClInclude>
+    <ClInclude Include="createCamera.h">
+      <Filter>Pliki źródłowe\additions\createCamera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

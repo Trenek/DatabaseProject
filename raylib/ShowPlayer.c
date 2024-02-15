@@ -22,7 +22,6 @@ static int showPlayer(SQLHANDLE SQLStatementHandle, void* message) {
 
 		if (*civName != 0) strcpy(player.civilizationName, civName);
 		strcpy(player.playerName, playerName);
-		printf("%s\n", player.civilizationName);
 	}
 
 	return (int)nr;

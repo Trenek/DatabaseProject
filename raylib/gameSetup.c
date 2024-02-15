@@ -21,32 +21,7 @@
 #include "GetCivilizations.h"
 #include "GetPoliticalDivision.h"
 #include "AssignCivilization.h"
-
-inline void addCityTexture(Texture2D* city, int size) {
-    Image image;
-
-    LoadingScreen(size, size + 2);
-    image = LoadImage("assets/City.png");
-    city[0] = LoadTextureFromImage(image);
-    UnloadImage(image);
-    LoadingScreen(size + 1, size + 2);
-    image = LoadImage("assets/CapitalCity.png");
-    city[1] = LoadTextureFromImage(image);
-    LoadingScreen(size + 2, size + 2);
-    UnloadImage(image);
-}
-
-inline Camera2D createCamera(int width, int height, int radius) {
-    float one = GetScreenWidth() / ((sqrtf(3) * radius) * (width + 3));
-    float two = GetScreenHeight() / ((3 * radius * (height + 3)) / 2.0f);
-
-    return (Camera2D) {
-        .target = (Vector2){ 950, 800 },
-        .offset = (Vector2){ GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f },
-        .rotation = 0.0f,
-        .zoom = two > one ? one : two
-    };
-}
+#include "createCamera.h"
 
 static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city) {
     extern struct gameInformations info;
