@@ -56,7 +56,7 @@ void mapDebug(enum state* state) {
     Texture2D* texture = LoadTextures(&size);
     Texture2D city[2];
 
-    struct GridTile** grid = allocGridTile(width, height, texture);
+    struct GridTile** grid = allocMapGridTile(width, height, texture, 1);
 
     struct Civilization* civilizations = GetCivilizations(1);
 

@@ -42,37 +42,38 @@ inline Camera2D createCamera(int width, int height, int radius) {
 
     return (Camera2D) {
         .target = (Vector2){ 950, 800 },
-            .offset = (Vector2){ GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f },
-            .rotation = 0.0f,
-            .zoom = two > one ? one : two
+        .offset = (Vector2){ GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f },
+        .rotation = 0.0f,
+        .zoom = two > one ? one : two
     };
 }
 
 static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city) {
+    extern struct gameInformations info;
+
     Color color2 = { .r = 78, .g = 215, .b = 50, .a = 255 };
     Color color3 = { .r = 78, .g = 215, .b = 50, .a = 105 };
-    const int width = 25;
-    const int height = 25;
+    int width = 25;
+    int height = 25;
     int radius = 40;
     int frontSize = 40;
     Vector2 chosen = { -1, -1 };
-    char civilization[256];
+
     Camera2D camera1 = createCamera(width, height, radius);
 
     RenderTexture screenCamera1 = LoadRenderTexture(GetScreenWidth(), GetScreenHeight() + 20);
     Rectangle splitScreenRect = { 0.0f, 0.0f, (float)screenCamera1.texture.width, (float)-screenCamera1.texture.height };
 
-    struct GridTile** grid = allocGridTile(width, height, texture);
+    struct GridTile** grid = allocSessionGridTile(width, height, texture, info.sessionID);
 
-    struct Civilization* civilizations = GetCivilizations(1);
+    struct Civilization* civilizations = GetSessionCivilizations(info.sessionID);
 
     bool political = true;
 
-    GetPoliticalDivision(grid, 1);
+    GetSessionPoliticalDivision(grid, info.sessionID);
 
     int exit = 0;
     char errorMessage[512] = { 0 };
-    extern struct gameInformations info;
     int error = 0;
 
     while (!WindowShouldClose() && !exit) {
@@ -136,7 +137,6 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
                     AssignCivilization(errorMessage, playerID, grid[(int)chosen.x][(int)chosen.y].civilizationID, info.sessionID);
 
                     if (*errorMessage == 0) {
-                        strcpy(civilization, civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name);
                         exit = 1;
                     }
                     else {
@@ -317,11 +317,18 @@ void gameSetup(enum state* state) {
     int size = 0;
     Texture2D* texture = LoadTextures(&size);
     Texture2D city[2];
+    int reload = 1;
+
     addCityTexture(city, size);
 
-    nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
-    playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
     while (!WindowShouldClose() && *state == GAME_SETUP) {
+        if (reload == 1) {
+            nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
+            strcpy(civilizationName, "Civilization");
+            playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+            reload = 0;
+        }
+
         BeginDrawing();
 
         ClearBackground(color);
@@ -343,36 +350,26 @@ void gameSetup(enum state* state) {
             if (nextExists > 0) {
                 if (isMouseInRange((GetScreenWidth() >> 1) + 90, (GetScreenHeight() >> 1) - 150, 10, 10, 20, "Next")) {
                     page += 1;
-                    nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
-                    memset(civilizationName, 0, 255);
-                    strcpy(civilizationName, "Civilization");
-                    playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+                    reload = 1;
                 }
             }
             else {
                 if (isMouseInRange((GetScreenWidth() >> 1) + 90, (GetScreenHeight() >> 1) - 150, 10, 10, 20, "Add")) {
                     if (addPlayer()) {
                         page += 1;
-                        nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
-                        memset(civilizationName, 0, 255);
-                        strcpy(civilizationName, "Civilization");
-                        playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+                        reload = 1;
                     }
                 }
             }
             if (page > 1)
             if (isMouseInRange((GetScreenWidth() >> 1) - 110, (GetScreenHeight() >> 1) - 150, 10, 10, 20, "Previous")) {
                 page -= 1;
-                nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
-                memset(civilizationName, 0, 255);
-                strcpy(civilizationName, "Civilization");
-                playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+                reload = 1;
             }
 
             if (isMouseInRange(GetScreenWidth() >> 1, (GetScreenHeight() >> 1) - 40, 10, 10, 20, civilizationName)) {
                 chooseCivilization(playerID, texture, city);
-                memset(civilizationName, 0, 255);
-                playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+                reload = 1;
             }
         }
     }

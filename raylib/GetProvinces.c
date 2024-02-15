@@ -35,3 +35,11 @@ void GetProvinces(struct GridTile** grid, Texture2D* texture, int mapID) {
 
 	QUERY(bufforQuery, NULL, getProvinces, &(struct twoVariables) {.grid = grid, .texture = texture});
 }
+
+void GetSessionProvinces(struct GridTile** grid, Texture2D* texture, int sessionID) {
+	char bufforQuery[512];
+
+	sprintf(bufforQuery, "EXECUTE dbo.[GetSessionProvinces] %i", sessionID);
+
+	QUERY(bufforQuery, NULL, getProvinces, &(struct twoVariables) {.grid = grid, .texture = texture});
+}

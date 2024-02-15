@@ -51,7 +51,8 @@
         bool isCapital;
     };
 
-    struct GridTile** allocGridTile(int width, int height, Texture2D* texture);
+    struct GridTile** allocMapGridTile(int width, int height, Texture2D* texture, int mapID);
+    struct GridTile** allocSessionGridTile(int width, int height, Texture2D* texture, int sessionID);
     void checkClick(int height, int width, int radius, struct GridTile** grid, Vector2* clicked, Camera2D camera);
     void GenerateHexGrid(int radius, int width, int height, struct GridTile** grid);
     void DrawVisibleFields(int radius, int width, int height, struct GridTile** grid, Texture2D* house);

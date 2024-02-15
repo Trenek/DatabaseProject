@@ -27,3 +27,11 @@ void GetPoliticalDivision(struct GridTile** grid, int mapID) {
 
 	QUERY(bufforQuery, NULL, getProvinces, grid);
 }
+
+void GetSessionPoliticalDivision(struct GridTile** grid, int sessionID) {
+	char bufforQuery[512];
+
+	sprintf(bufforQuery, "EXECUTE dbo.[GetSessionPoliticalDivision] %i", sessionID);
+
+	QUERY(bufforQuery, NULL, getProvinces, grid);
+}

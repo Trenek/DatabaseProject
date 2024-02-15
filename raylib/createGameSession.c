@@ -28,7 +28,7 @@ int createGameSession(const char* saveName, int creatorID, int mapID, char* erro
 		strcpy(errorMessageOut, pos ? pos + 2 : errorMessage);
 	}
 	else {
-		sprintf(buffor, "EXECUTE dbo.[GetGameSessionID] '%s', %i, %i", saveName, creatorID, mapID);
+		sprintf(buffor, "EXECUTE dbo.[GetGameSessionID] '%s', %i", saveName, creatorID);
 		id = QUERY(buffor, errorMessage, getGameSession, NULL);
 	}
 

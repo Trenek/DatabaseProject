@@ -20,5 +20,6 @@ struct Civilization {
 };
 
 struct Civilization* GetCivilizations(int mapID);
+struct Civilization* GetSessionCivilizations(int sessionID);
 
 #endif

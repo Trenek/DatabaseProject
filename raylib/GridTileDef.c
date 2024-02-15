@@ -7,14 +7,26 @@
 #include "GetProvinces.h"
 #include "GetCivilizations.h"
 
-struct GridTile** allocGridTile(int width, int height, Texture2D* texture) {
+struct GridTile** allocMapGridTile(int width, int height, Texture2D* texture, int mapID) {
     struct GridTile** grid = malloc(width * sizeof(struct GridTile*));
 
     for (int x = 0; x < width; x++) {
         grid[x] = malloc(height * sizeof(struct GridTile));
     }
 
-    GetProvinces(grid, texture, 1);
+    GetProvinces(grid, texture, mapID);
+
+    return grid;
+}
+
+struct GridTile** allocSessionGridTile(int width, int height, Texture2D* texture, int sessionID) {
+    struct GridTile** grid = malloc(width * sizeof(struct GridTile*));
+
+    for (int x = 0; x < width; x++) {
+        grid[x] = malloc(height * sizeof(struct GridTile));
+    }
+
+    GetSessionProvinces(grid, texture, sessionID);
 
     return grid;
 }
