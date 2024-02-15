@@ -7,12 +7,13 @@
 
 #include "state.h"
 #include "inputBox.h"
+#include "gameInformations.h"
 
 #include "drawMenuElement.h"
 #include "logInQuery.h"
 
 void login(enum state* state) {
-    extern int loggedInID;
+    extern struct gameInformations info;
 
     Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
     Color color2 = { .r = 78, .g = 215, .b = 50, .a = 255 };
@@ -50,7 +51,7 @@ void login(enum state* state) {
 
                 if (*errorMessage == 0) {
                     strcat(errorMessage, "Logged Successfully");
-                    loggedInID = tempLogin;
+                    info.owner = tempLogin;
                 }
 
                 clicked = 1;

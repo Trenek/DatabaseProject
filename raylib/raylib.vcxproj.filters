@@ -67,6 +67,21 @@
     <Filter Include="Pliki źródłowe\query\GetPoliticalDivision">
       <UniqueIdentifier>{d28b750f-ea83-4564-9663-1cc8c31fb9ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\query\GetMaps">
+      <UniqueIdentifier>{4fa5edae-bb2c-4a68-bd0a-f1c599286488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\ShowPlayer">
+      <UniqueIdentifier>{37837e17-95a4-48f6-81f1-b77a767ae131}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\AddPlayer">
+      <UniqueIdentifier>{e045a5bb-054c-4117-9166-a9bd2b4a1c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\additions\LoadingScreen">
+      <UniqueIdentifier>{6706ad3b-1312-47e4-94f2-1980af8b9c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\AssignCivilization">
+      <UniqueIdentifier>{d6874119-b430-4049-800a-914a5ed2a39b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -147,6 +162,21 @@
     <ClCompile Include="GetPoliticalDivision.c">
       <Filter>Pliki źródłowe\query\GetPoliticalDivision</Filter>
     </ClCompile>
+    <ClCompile Include="GetMaps.c">
+      <Filter>Pliki źródłowe\query\GetMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowPlayer.c">
+      <Filter>Pliki źródłowe\query\ShowPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPlayer.c">
+      <Filter>Pliki źródłowe\query\AddPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScreen.c">
+      <Filter>Pliki źródłowe\additions\LoadingScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="AssignCivilization.c">
+      <Filter>Pliki źródłowe\query\AssignCivilization</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">
@@ -202,6 +232,24 @@
     </ClInclude>
     <ClInclude Include="GetPoliticalDivision.h">
       <Filter>Pliki źródłowe\query\GetPoliticalDivision</Filter>
+    </ClInclude>
+    <ClInclude Include="GetMaps.h">
+      <Filter>Pliki źródłowe\query\GetMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowPlayer.h">
+      <Filter>Pliki źródłowe\query\ShowPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="AddPlayer.h">
+      <Filter>Pliki źródłowe\query\AddPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScreen.h">
+      <Filter>Pliki źródłowe\additions\LoadingScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="gameInformations.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="AssignCivilization.h">
+      <Filter>Pliki źródłowe\query\AssignCivilization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

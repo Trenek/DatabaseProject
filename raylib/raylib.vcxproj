@@ -106,7 +106,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\dependencies\src; %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\dependencies\src; %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,19 +136,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddPlayer.c" />
     <ClCompile Include="AddUser.c" />
+    <ClCompile Include="AssignCivilization.c" />
     <ClCompile Include="createGame.c" />
     <ClCompile Include="createGameSession.c" />
     <ClCompile Include="drawMenuElement.c" />
     <ClCompile Include="gameSetup.c" />
     <ClCompile Include="GetCivilizations.c" />
     <ClCompile Include="getGameSessions.c" />
+    <ClCompile Include="GetMaps.c" />
     <ClCompile Include="GetPoliticalDivision.c" />
     <ClCompile Include="GetProvinces.c" />
     <ClCompile Include="GetTerrain.c" />
     <ClCompile Include="GetUsers.c" />
     <ClCompile Include="GridTileDef.c" />
     <ClCompile Include="inputBox.c" />
+    <ClCompile Include="LoadingScreen.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="logInQuery.c" />
     <ClCompile Include="mapDebug.c" />
@@ -162,13 +166,18 @@
     <ClCompile Include="query.c" />
     <ClCompile Include="DatbaseProject.c" />
     <ClCompile Include="register.c" />
+    <ClCompile Include="ShowPlayer.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddPlayer.h" />
     <ClInclude Include="AddUser.h" />
+    <ClInclude Include="AssignCivilization.h" />
     <ClInclude Include="createGameSession.h" />
     <ClInclude Include="drawMenuElement.h" />
+    <ClInclude Include="gameInformations.h" />
     <ClInclude Include="GetCivilizations.h" />
     <ClInclude Include="getGameSessions.h" />
+    <ClInclude Include="GetMaps.h" />
     <ClInclude Include="GetPoliticalDivision.h" />
     <ClInclude Include="GetProvinces.h" />
     <ClInclude Include="GetTerrain.h" />
@@ -176,11 +185,13 @@
     <ClInclude Include="GridTileDef.h" />
     <ClInclude Include="inputBox.h" />
     <ClInclude Include="isMouseInRange.h" />
+    <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="logInQuery.h" />
     <ClInclude Include="modifyBackgroundColor.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="ProvinceTextures.h" />
     <ClInclude Include="query.h" />
+    <ClInclude Include="ShowPlayer.h" />
     <ClInclude Include="state.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

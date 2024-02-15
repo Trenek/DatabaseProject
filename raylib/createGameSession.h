@@ -1,1 +1,1 @@
-int createGameSession(const char* saveName, int creatorID, char* errorMessage);
+int createGameSession(const char* saveName, int creatorID, int mapID, char* errorMessage);

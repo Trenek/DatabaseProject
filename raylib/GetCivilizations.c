@@ -16,6 +16,7 @@ static int getCivilizations(SQLHANDLE SQLStatementHandle, void* message) {
 		SQLGetData(SQLStatementHandle, 1, SQL_C_DEFAULT, &index, sizeof(index), NULL);
 		SQLGetData(SQLStatementHandle, 2, SQL_C_DEFAULT, &two[index].CivilizationID, sizeof(two[index].CivilizationID), NULL);
 		SQLGetData(SQLStatementHandle, 3, SQL_C_DEFAULT, &rgba, sizeof(rgba), NULL);
+		SQLGetData(SQLStatementHandle, 4, SQL_C_DEFAULT, two[index].name, sizeof(two[index].name), NULL);
 		two[index].color = GetColor((unsigned int)rgba);
 	}
 
@@ -32,14 +33,15 @@ static int countCivilizations(SQLHANDLE SQLStatementHandle, void* message) {
 	return count;
 }
 
-struct Civilization* GetCivilizations(int* count, int mapID) {
+struct Civilization* GetCivilizations(int mapID) {
 	struct Civilization* civilization;
 	char bufforQuery[512];
+	int count = 0;
 
 	sprintf(bufforQuery, "EXECUTE dbo.[CountCivilizations] %i", mapID);
 
-	*count = QUERY(bufforQuery, NULL, countCivilizations, NULL);
-	civilization = malloc(*count * sizeof(struct Civilization));
+	count = QUERY(bufforQuery, NULL, countCivilizations, NULL);
+	civilization = malloc(count * sizeof(struct Civilization));
 
 	sprintf(bufforQuery, "EXECUTE dbo.[GetCivilizations] %i", mapID);
 

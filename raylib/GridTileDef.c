@@ -19,11 +19,11 @@ struct GridTile** allocGridTile(int width, int height, Texture2D* texture) {
     return grid;
 }
 
-static bool check(Vector2 center, double radius, Camera2D camera) {
+static bool check(Vector2 center, int radius, Camera2D camera) {
     Vector2 mouse = GetMousePosition();
 
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius / 2.0;
+    float horiz = sqrtf(3) * radius / 2.0f;
+    float vert = radius / 2.0f;
 
     mouse.x -= camera.offset.x;
     mouse.y -= camera.offset.y;
@@ -47,52 +47,110 @@ static bool check(Vector2 center, double radius, Camera2D camera) {
 }
 
 void checkClick(int height, int width, int radius, struct GridTile** grid, Vector2* clicked, Camera2D camera) {
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    int x = 0;
+    int y = 0;
+
+    clicked->x = -1.0f;
+    clicked->y = -1.0f;
+    for (y = 0; y < height; y++) {
+        for (x = 0; x < width; x++) {
             grid[x][y].isClicked = check(grid[x][y].screen_coordinates, radius, camera);
+            if (grid[x][y].isClicked) {
+                clicked->x = (float)x;
+                clicked->y = (float)y;
+            }
         }
     }
 }
 
 void GenerateHexGrid(int radius, int width, int height, struct GridTile** grid) {
     float horiz = sqrtf(3) * radius;
-    float vert = (3.0 / 2.0) * radius;
+    float vert = (3.0f / 2.0f) * radius;
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            grid[x][y].screen_coordinates.x = (horiz * (x + ((y & 1) ? 0.5 : 0))) + 100;
+            grid[x][y].screen_coordinates.x = (horiz * (x + ((y & 1) ? 0.5f : 0))) + 100;
             grid[x][y].screen_coordinates.y = (vert * y) + 100;
         }
     }
 };
 
-void DrawVisibleFields(double radius, int width, int height, struct GridTile** grid, Texture2D house) {
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius;
+void DrawVisibleFields(int radius, int width, int height, struct GridTile** grid, Texture2D* house) {
+    float horiz = sqrtf(3) * radius / 2.0f;
+    int vert = radius;
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            DrawTextureEx(*grid[x][y].texture, (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0, WHITE);
-
-            if (grid[x][y].isClicked) {
-                DrawPoly(grid[x][y].screen_coordinates, 6, radius, 90, (Color) { .r = 0, .g = 0, .b = 0, .a = 125 });
+            DrawTextureEx(*grid[x][y].texture, (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, WHITE);
+            if (grid[x][y].CityID) {
+                if (grid[x][y].isCapital) {
+                    DrawTextureEx(house[1], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 255 });
+                }
+                else {
+                    DrawTextureEx(house[0], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 255 });
+                }
             }
         }
     }
 };
 
-void DrawCity(double radius, int width, int height, struct GridTile** grid, Texture2D* house) {
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius;
+void getClickedProvince(int width, int height, struct GridTile** grid, int* ptrX, int* ptrY) {
+    int x = 0;
+    int y = 0;
+
+    while (y < height && !grid[x][y].isClicked) {
+        x += 1;
+
+        if (x == width) {
+            x = 0;
+            y += 1;
+        }
+    }
+
+    *ptrX = x;
+    *ptrY = y;
+}
+
+void DrawClickedProvince(int radius, int width, int height, struct GridTile** grid) {
+    int x = 0;
+    int y = 0;
+
+    getClickedProvince(width, height, grid, &x, &y);
+    DrawPoly(grid[x][y].screen_coordinates, 6, (float)radius, 90, (Color) { .r = 0, .g = 0, .b = 0, .a = 125 });
+}
+
+void DrawClickedCivilization(int radius, int width, int height, struct GridTile** grid) {
+    int clickedX = 0;
+    int clickedY = 0;
+
+    getClickedProvince(width, height, grid, &clickedX, &clickedY);
+
+    if (grid[clickedX][clickedY].civilizationID > 0) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (grid[clickedX][clickedY].civilizationID == grid[x][y].civilizationID) {
+                    DrawPoly(grid[x][y].screen_coordinates, 6, (float)radius, 90, (Color) { .r = 0, .g = 0, .b = 0, .a = 125 });
+                }
+            }
+        }
+    }
+    else {
+        DrawPoly(grid[clickedX][clickedY].screen_coordinates, 6, (float)radius, 90, (Color) { .r = 0, .g = 0, .b = 0, .a = 125 });
+    }
+}
+
+void DrawCity(int radius, int width, int height, struct GridTile** grid, Texture2D* house) {
+    float horiz = sqrtf(3) * radius / 2.0f;
+    int vert = radius;
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (grid[x][y].CityID) {
                 if (grid[x][y].isCapital) {
-                    DrawTextureEx(house[1], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0, (Color) { 255, 255, 255, 0xD2 });
+                    DrawTextureEx(house[1], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 0xD2 });
                 }
                 else {
-                    DrawTextureEx(house[0], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0, (Color) { 255, 255, 255, 0xD2 });
+                    DrawTextureEx(house[0], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 0xD2 });
                 }
             }
         }
@@ -100,20 +158,17 @@ void DrawCity(double radius, int width, int height, struct GridTile** grid, Text
 };
 
 
-void DrawPoliticalDivision(double radius, int width, int height, struct GridTile** grid, struct Civilization* civilizations) {
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius;
+void DrawPoliticalDivision(int radius, int width, int height, struct GridTile** grid, struct Civilization* civilizations) {
+    float horiz = sqrtf(3) * radius / 2.0f;
+    int vert = radius;
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            //DrawTextureEx(*grid[x][y].texture, (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0, WHITE);
             if (grid[x][y].civilizationID > 0)
-            DrawPoly(grid[x][y].screen_coordinates, 6, radius, 90, civilizations[grid[x][y].civilizationNumber].color);
+            DrawPoly(grid[x][y].screen_coordinates, 6, (float)radius, 90, civilizations[grid[x][y].civilizationNumber].color);
         }
     }
 };
-
-/**/
 
 inline bool checkDrawLine(int x, int y, int incX, int incY, struct GridTile** grid) {
     bool result = false;
@@ -129,9 +184,9 @@ inline bool checkDrawLine(int x, int y, int incX, int incY, struct GridTile** gr
     return result;
 }
 
-void DrawPoliticalGridOutline(double radius, int width, int height, struct GridTile** grid) {
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius / 2.0;
+void DrawPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid) {
+    float horiz = sqrtf(3) * radius / 2.0f;
+    float vert = radius / 2.0f;
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -172,21 +227,20 @@ void DrawPoliticalGridOutline(double radius, int width, int height, struct GridT
         }
     }
 };
-/**/
 
-void DEBUG_DrawCoordinatesOnHexGrid(double radius, int width, int height, struct GridTile** grid) {
+void DEBUG_DrawCoordinatesOnHexGrid(int radius, int width, int height, struct GridTile** grid) {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            DrawText(TextFormat("y: %d", y), grid[x][y].screen_coordinates.x - (radius / 2), grid[x][y].screen_coordinates.y, radius / 2, LIME);
-            DrawText(TextFormat("x: %d", x), grid[x][y].screen_coordinates.x - (radius / 2), grid[x][y].screen_coordinates.y - (radius / 2), radius / 2, VIOLET);
+            DrawText(TextFormat("y: %d", y), (int)(grid[x][y].screen_coordinates.x - (radius / 2.0)), (int)grid[x][y].screen_coordinates.y, radius >> 1, LIME);
+            DrawText(TextFormat("x: %d", x), (int)(grid[x][y].screen_coordinates.x - (radius / 2.0)), (int)(grid[x][y].screen_coordinates.y - (radius / 2.0)), radius >> 1, VIOLET);
         }
     }
 };
 
-void DrawHexGridOutline(double radius, int width, int height, struct GridTile** grid) {
+void DrawHexGridOutline(int radius, int width, int height, struct GridTile** grid) {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            DrawPolyLines(grid[x][y].screen_coordinates, 6, radius, 90,
+            DrawPolyLines(grid[x][y].screen_coordinates, 6, (float)radius, 90,
                 //BROWN
                 BLACK
             );

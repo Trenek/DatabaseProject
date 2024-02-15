@@ -18,23 +18,18 @@ static int getTerrainCount(SQLHANDLE SQLStatementHandle, void* message) {
 
 static int getTerrain(SQLHANDLE SQLStatementHandle, void* message) {
 	char** buffor = (char**)message;
-	char temp[255];
 	int i = 0;
 
 	while (SQLFetch(SQLStatementHandle) == SQL_SUCCESS) {
 		SQLGetData(SQLStatementHandle, 1, SQL_C_DEFAULT, &i, sizeof(i), NULL);
 		buffor[i - 1] = malloc(255 * sizeof(char));
-		//SQLGetData(SQLStatementHandle, 2, SQL_C_DEFAULT, buffor[i - 1], sizeof(buffor[i - 1]), NULL);
-		//printf(buffor[i - 1]);
-		SQLGetData(SQLStatementHandle, 2, SQL_C_DEFAULT, temp, sizeof(temp), NULL);
-		strcpy(buffor[i - 1], temp);
+		SQLGetData(SQLStatementHandle, 2, SQL_C_DEFAULT, buffor[i - 1], sizeof(char) * 255, NULL);
 	}
 
 	return 0;
 }
 
 char** GetTerrain(int* size) {
-	char bufforQuery[512];
 	char** buffor;
 	
 	*size = QUERY("EXECUTE dbo.[GetTerrainCount]", NULL, getTerrainCount, NULL);

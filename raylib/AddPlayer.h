@@ -1,0 +1,1 @@
+int AddPlayer(char* errorMessageOut, int gameSession, int userID);

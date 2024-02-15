@@ -49,10 +49,12 @@
     struct GridTile** allocGridTile(int width, int height, Texture2D* texture);
     void checkClick(int height, int width, int radius, struct GridTile** grid, Vector2* clicked, Camera2D camera);
     void GenerateHexGrid(int radius, int width, int height, struct GridTile** grid);
-    void DrawVisibleFields(double radius, int width, int height, struct GridTile** grid, Texture2D house);
-    void DEBUG_DrawCoordinatesOnHexGrid(double radius, int width, int height, struct GridTile** grid);
-    void DrawHexGridOutline(double radius, int width, int height, struct GridTile** grid);
-    void DrawPoliticalDivision(double radius, int width, int height, struct GridTile** grid, struct Civilization* civilizations);
-    void DrawCity(double radius, int width, int height, struct GridTile** grid, Texture2D* house);
-    void DrawPoliticalGridOutline(double radius, int width, int height, struct GridTile** grid);
+    void DrawVisibleFields(int radius, int width, int height, struct GridTile** grid, Texture2D* house);
+    void DEBUG_DrawCoordinatesOnHexGrid(int radius, int width, int height, struct GridTile** grid);
+    void DrawHexGridOutline(int radius, int width, int height, struct GridTile** grid);
+    void DrawPoliticalDivision(int radius, int width, int height, struct GridTile** grid, struct Civilization* civilizations);
+    void DrawCity(int radius, int width, int height, struct GridTile** grid, Texture2D* house);
+    void DrawPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid);
+    void DrawClickedProvince(int radius, int width, int height, struct GridTile** grid);
+    void DrawClickedCivilization(int radius, int width, int height, struct GridTile** grid);
 #endif

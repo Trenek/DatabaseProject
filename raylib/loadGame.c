@@ -5,6 +5,7 @@
 #include "raylib.h"
 
 #include "state.h"
+#include "gameInformations.h"
 
 #include "drawMenuElement.h"
 #include "getGameSessions.h"
@@ -24,11 +25,10 @@ void loadGame(enum state* state) {
     int nextExists = 0;
     int chosenOne = -1;
     int chosenPage = 0;
-    extern int loggedInID;
-    extern int gameSessionID;
+    extern struct gameInformations info;
 
-    nextExists = GetGameSessions(gameSessions, page + 1, loggedInID);
-    GetGameSessions(gameSessions, page, loggedInID);
+    nextExists = GetGameSessions(gameSessions, page + 1, info.owner);
+    GetGameSessions(gameSessions, page, info.owner);
     while (!WindowShouldClose() && *state == LOAD_GAME) {
         BeginDrawing();
 
@@ -55,15 +55,15 @@ void loadGame(enum state* state) {
             if (page > 1) {
                 if (isMouseInRange((GetScreenWidth() >> 1) - 100, (GetScreenHeight() >> 3), 10, 10, 20, "Previous")) {
                     page -= 1;
-                    nextExists = GetGameSessions(gameSessions, page + 1, loggedInID);
-                    GetGameSessions(gameSessions, page, loggedInID);
+                    nextExists = GetGameSessions(gameSessions, page + 1, info.owner);
+                    GetGameSessions(gameSessions, page, info.owner);
                 }
             }
             if (nextExists) {
                 if (isMouseInRange((GetScreenWidth() >> 1) + 80, (GetScreenHeight() >> 3), 10, 10, 20, "Next")) {
                     page += 1;
-                    nextExists = GetGameSessions(gameSessions, page + 1, loggedInID);
-                    GetGameSessions(gameSessions, page, loggedInID);
+                    nextExists = GetGameSessions(gameSessions, page + 1, info.owner);
+                    GetGameSessions(gameSessions, page, info.owner);
                 }
             }
 
@@ -72,7 +72,7 @@ void loadGame(enum state* state) {
                 if (CheckCollisionPointRec(GetMousePosition(), getRectangle(GetScreenWidth() >> 1, (GetScreenHeight() >> 3) + ((i + 1) * 33) + 30, 250, 30))) {
                     chosenPage = page;
                     chosenOne = i;
-                    gameSessionID = gameSessions[i].id;
+                    info.sessionID = gameSessions[i].id;
                 }
 
                 i += 1;

@@ -1,3 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 #include "raylib.h"
@@ -9,28 +13,44 @@
 #include "ProvinceTextures.h"
 #include "GetCivilizations.h"
 #include "GetPoliticalDivision.h"
+#include "LoadingScreen.h"
+
+inline void addCityTexture(Texture2D* city, int size) {
+    Image image;
+
+    LoadingScreen(size, size + 2);
+    image = LoadImage("assets/City.png");
+    city[0] = LoadTextureFromImage(image);
+    UnloadImage(image);
+    LoadingScreen(size + 1, size + 2);
+    image = LoadImage("assets/CapitalCity.png");
+    city[1] = LoadTextureFromImage(image);
+    LoadingScreen(size + 2, size + 2);
+    UnloadImage(image);
+}
+
+inline Camera2D createCamera(int width, int height, int radius) {
+    float one = GetScreenWidth() / ((sqrtf(3) * radius) * (width + 3));
+    float two = GetScreenHeight() / ((3 * radius * (height + 3)) / 2.0f);
+
+    return (Camera2D) {
+        .target = (Vector2){ 950, 800 },
+        .offset = (Vector2){ GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f },
+        .rotation = 0.0f,
+        .zoom = two > one ? one : two
+    };
+}
 
 void mapDebug(enum state* state) {
-    Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
     const int width = 25;
     const int height = 25;
     int radius = 40;
     int frontSize = 40;
     Vector2 chosen = { 0, 0 };
+
     int size = 0;
 
-    float one = GetScreenWidth() / ((sqrtf(3) * radius) * (width + 3));
-    float two = GetScreenHeight() / ((3.0 * radius / 2.0) * (float)(height + 3));
-
-    Camera2D camera1 = {
-        .target = (Vector2){ 950, 800 },
-        .offset = (Vector2){ GetScreenWidth() / 2, GetScreenHeight() / 2},
-        .rotation = 0.0f,
-        .zoom = two > one ? one : two
-    };
-
-    float horiz = sqrtf(3) * radius / 2.0;
-    float vert = radius;
+    Camera2D camera1 = createCamera(width, height, radius);
 
     RenderTexture screenCamera1 = LoadRenderTexture(GetScreenWidth(), GetScreenHeight() + 20);
     Rectangle splitScreenRect = { 0.0f, 0.0f, (float)screenCamera1.texture.width, (float)-screenCamera1.texture.height };
@@ -38,19 +58,13 @@ void mapDebug(enum state* state) {
     Texture2D* texture = LoadTextures(&size);
     Texture2D city[2];
 
-    Image image = LoadImage("assets/City.png");
-    city[0] = LoadTextureFromImage(image);
-    UnloadImage(image);
-    image = LoadImage("assets/CapitalCity.png");
-    city[1] = LoadTextureFromImage(image);
-    UnloadImage(image);
-
     struct GridTile** grid = allocGridTile(width, height, texture);
 
-    int count = 0;
-    struct Civilization* civilizations = GetCivilizations(&count, 1);
+    struct Civilization* civilizations = GetCivilizations(1);
 
     bool political = true;
+
+    addCityTexture(city, size);
 
     GetPoliticalDivision(grid, 1);
 
@@ -65,33 +79,33 @@ void mapDebug(enum state* state) {
         if (IsKeyDown(KEY_DOWN)) camera1.target.y += 1 / camera1.zoom;
         if (IsKeyDown(KEY_UP)) camera1.target.y -= 1 / camera1.zoom;
 
-        if (IsKeyDown(KEY_Q)) camera1.zoom += 0.01;
-        if (IsKeyDown(KEY_E)) camera1.zoom -= 0.01;
+        if (IsKeyDown(KEY_Q)) camera1.zoom += 0.01f;
+        if (IsKeyDown(KEY_E)) camera1.zoom -= 0.01f;
         camera1.zoom += (GetMouseWheelMove() * camera1.zoom / 16);
-        if (camera1.zoom < 0.1) camera1.zoom = 0.1;
-        if (camera1.zoom > 10) camera1.zoom = 10;
+        if (camera1.zoom < 0.1) camera1.zoom = 0.1f;
+        if (camera1.zoom > 10) camera1.zoom = 10.0f;
 
         BeginTextureMode(screenCamera1);
             ClearBackground(BROWN);
 
             BeginMode2D(camera1);
                 GenerateHexGrid(radius, width, height, grid);
-                DrawVisibleFields(radius, width, height, grid, texture[size - 1]);
-                if (political) DrawPoliticalDivision(radius, width, height, grid, civilizations);
-                DrawCity(radius, width, height, grid, city);
+                DrawVisibleFields(radius, width, height, grid, city);
+                if (political) {
+                    DrawPoliticalDivision(radius, width, height, grid, civilizations);
+                    DrawCity(radius, width, height, grid, city);
+                }
+                //DrawClickedProvince(radius, width, height, grid);
+                DrawClickedCivilization(radius, width, height, grid);
                 DrawPoliticalGridOutline(radius, width, height, grid);
                 DrawHexGridOutline(radius, width, height, grid);
-                //DEBUG_DrawCoordinatesOnHexGrid(radius, width, height, grid);
-                drawMenuElement("Choose Your Country Fellow Citizen", frontSize, sqrtf(3) * radius * width / 2, 0, 10, 10, NULL, NULL);
-                //DrawTexture(texture, GetScreenWidth() / 2 - texture.width / 2, GetScreenHeight() / 2 - texture.height / 2, WHITE);
-                //DrawTextureEx(texture, (Vector2) { .x = 100 - horiz, .y = 100 - vert }, 0, (radius << 1) / 2579.0, WHITE);
+                drawMenuElement("Choose Your Country Fellow Citizen", frontSize, (int)(sqrtf(3) * radius * width / 2.0), 0, 10, 10, NULL, NULL);
             EndMode2D();
         EndTextureMode();
 
         BeginDrawing();
         ClearBackground(BROWN);
         DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
-        //DrawText(TextFormat("%f %f %f %f %f", camera1.offset.x, camera1.offset.y, camera1.target.x, camera1.target.y, camera1.zoom), 0, 0, 20, (Color) { .r = 0, .g = 0, .b = 0, .a = 255 });
 
         EndDrawing();
 
@@ -108,7 +122,8 @@ void mapDebug(enum state* state) {
         }
     }
 
-    UnloadRenderTexture(screenCamera1); // Unload render texture
+    free(civilizations);
+    UnloadRenderTexture(screenCamera1);
     UnloadTextures(texture, size);
     UnloadTexture(city[0]);
     UnloadTexture(city[1]);

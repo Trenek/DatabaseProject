@@ -12,9 +12,10 @@ typedef struct Color {
 
 struct Civilization {
 	int CivilizationID;
+    char name[255];
     Color color;
 };
 
-struct Civilization* GetCivilizations(int* count, int mapID);
+struct Civilization* GetCivilizations(int mapID);
 
 #endif

@@ -4,11 +4,11 @@
 #include "raylib.h"
 
 #include "state.h"
+#include "gameInformations.h"
 
-int loggedInID = 0;
-int gameSessionID = 0;
+struct gameInformations info = { 0 };
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 int main(void) {
     enum state state = MENU;
@@ -24,11 +24,12 @@ int main(void) {
         [MAP_DEBUG] = mapDebug
     };
 
-    InitWindow(800, 600, "Project");
 #ifdef FULLSCREEN
     int display = GetCurrentMonitor();
-    SetWindowSize(GetMonitorWidth(display), GetMonitorHeight(display));
+    InitWindow(GetMonitorWidth(display), GetMonitorHeight(display), "Project");
     ToggleFullscreen();
+#else
+    InitWindow(800, 600, "Project");
 #endif
 
     SetTargetFPS(240);
