@@ -95,12 +95,13 @@ void DrawVisibleFields(int radius, int width, int height, struct GridTile** grid
         for (int x = 0; x < width; x++) {
             DrawTextureEx(*grid[x][y].texture, (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, WHITE);
             if (grid[x][y].CityID) {
-                if (grid[x][y].isCapital) {
-                    DrawTextureEx(house[1], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 255 });
-                }
-                else {
-                    DrawTextureEx(house[0], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 255 });
-                }
+                DrawTextureEx(
+                    grid[x][y].isCapital ? house[1] : house[0], 
+                    (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 
+                    0, 
+                    (radius * 2) / 2579.0f, 
+                    WHITE
+                );
             }
         }
     }
@@ -158,12 +159,13 @@ void DrawCity(int radius, int width, int height, struct GridTile** grid, Texture
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (grid[x][y].CityID) {
-                if (grid[x][y].isCapital) {
-                    DrawTextureEx(house[1], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 0xD2 });
-                }
-                else {
-                    DrawTextureEx(house[0], (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert }, 0, (radius * 2) / 2579.0f, (Color) { 255, 255, 255, 0xD2 });
-                }
+                DrawTextureEx(
+                    grid[x][y].isCapital ? house[1] : house[0], 
+                    (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, .y = grid[x][y].screen_coordinates.y - vert },
+                    0, 
+                    (radius * 2) / 2579.0f, 
+                    (Color) { 255, 255, 255, 0xD2 }
+                );
             }
         }
     }
@@ -179,7 +181,7 @@ void DrawPoliticalDivision(int radius, int width, int height, struct GridTile** 
     }
 };
 
-inline bool checkDrawLine(int x, int y, int incX, int incY, struct GridTile** grid) {
+inline bool checkDrawLine(int x, int y, int incX, int incY, struct GridTile** grid, int chosenID, int* isChosen, int playerID, int* isPlayer) {
     bool result = false;
 
     if (x + incX > 0 && x + incX < 25) {
@@ -187,54 +189,250 @@ inline bool checkDrawLine(int x, int y, int incX, int incY, struct GridTile** gr
             if (grid[x][y].civilizationID != grid[x + incX][y + incY].civilizationID) {
                 result = true;
             }
+            if (isChosen != NULL) *isChosen = (grid[x][y].civilizationID == chosenID) || (grid[x + incX][y + incY].civilizationID == chosenID);
+            if (isPlayer != NULL) *isPlayer = (grid[x][y].civilizationID == playerID) || (grid[x + incX][y + incY].civilizationID == playerID);
         }
     }
 
     return result;
 }
 
-void DrawPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid) {
+void DrawNormalPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid, int playerID, Color playerColor) {
+    int isChosen = 0;
+    int isPlayer = 0;
+#define THICKNESS 20
+
     float horiz = sqrtf(3) * radius / 2.0f;
     float vert = radius / 2.0f;
 
+    playerColor.r = playerColor.r >> 2;
+    playerColor.g = playerColor.g >> 2;
+    playerColor.b = playerColor.b >> 2;
+    playerColor.a = 255;
+
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            if (y % 2 == 1) {
-                if (checkDrawLine(x, y, 0, -1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
-                if (checkDrawLine(x, y, 0, 1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
-                if (checkDrawLine(x, y, 1, 1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
-                if (checkDrawLine(x, y, 1, -1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
+            if (checkDrawLine(x, y, (y & 1) - 1, -1, grid, -1, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert },
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius },
+                    THICKNESS,
+                    isPlayer ? playerColor : BLACK
+                );
             }
-            else {
-                if (checkDrawLine(x, y, -1, -1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
-                if (checkDrawLine(x, y, -1, 1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
-                if (checkDrawLine(x, y, 0, 1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
-                if (checkDrawLine(x, y, 0, -1, grid)) {
-                    DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius }, 20, (Color) { 0, 0, 0, 255 });
-                }
+            if (checkDrawLine(x, y, (y & 1) - 1, 1, grid, -1, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert },
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius },
+                    THICKNESS,
+                    isPlayer ? playerColor : BLACK
+                );
             }
-            if (checkDrawLine(x, y, -1, 0, grid)) {
-                DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert }, 20, (Color) { 0, 0, 0, 255 });
+            if (checkDrawLine(x, y, y & 1, 1, grid, -1, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert },
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius },
+                    THICKNESS,
+                    isPlayer ? playerColor : BLACK
+                );
             }
-            if (checkDrawLine(x, y, 1, 0, grid)) {
-                DrawLineEx((Vector2) { .x = grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert }, (Vector2) { .x = grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert }, 20, (Color) { 0, 0, 0, 255 });
+            if (checkDrawLine(x, y, y & 1, -1, grid, -1, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert },
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius },
+                    THICKNESS,
+                    isPlayer ? playerColor : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, -1, 0, grid, -1, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert },
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert },
+                    THICKNESS,
+                    isPlayer ? playerColor : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, 1, 0, grid, -1, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert },
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert },
+                    THICKNESS,
+                    isPlayer ? playerColor : BLACK
+                );
             }
         }
     }
+
+#undef THICKNESS
+};
+
+void DrawChosenPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid, int chosenID) {
+    int isChosen = 0;
+    int isPlayer = 0;
+    #define THICKNESS 20
+
+    float horiz = sqrtf(3) * radius / 2.0f;
+    float vert = radius / 2.0f;
+
+    static double oscilations = 0;
+    unsigned char currentPosition = (unsigned char)(127.5 * (sin(oscilations) + 1));
+    Color currentColor = { .r = 255, .g = 255, .b = 255, .a = currentPosition };
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (checkDrawLine(x, y, (y & 1) - 1, -1, grid, chosenID, &isChosen, -1, &isPlayer)) {
+                if (isChosen)
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert }, 
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius }, 
+                    THICKNESS,
+                    currentColor
+                );
+            }
+            if (checkDrawLine(x, y, (y & 1) - 1, 1, grid, chosenID, &isChosen, -1, &isPlayer)) {
+                if (isChosen)
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert }, 
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius },
+                    THICKNESS,
+                    currentColor
+                );
+            }
+            if (checkDrawLine(x, y, y & 1, 1, grid, chosenID, &isChosen, -1, &isPlayer)) {
+                if (isChosen)
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert }, 
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius }, 
+                    THICKNESS,
+                    currentColor
+                );
+            }
+            if (checkDrawLine(x, y, y & 1, -1, grid, chosenID, &isChosen, -1, &isPlayer)) {
+                if (isChosen)
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert }, 
+                    (Vector2) { grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius }, 
+                    THICKNESS,
+                    currentColor
+                );
+            }
+            if (checkDrawLine(x, y, -1, 0, grid, chosenID, &isChosen, -1, &isPlayer)) {
+                if (isChosen)
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert }, 
+                    (Vector2) { grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert }, 
+                    THICKNESS,
+                    currentColor
+                );
+            }
+            if (checkDrawLine(x, y, 1, 0, grid, chosenID, &isChosen, -1, &isPlayer)) {
+                if (isChosen)
+                DrawLineEx(
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert }, 
+                    (Vector2) { grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert }, 
+                    THICKNESS,
+                    currentColor
+                );
+            }
+        }
+    }
+
+    oscilations += 0.02;
+    #undef THICKNESS
+};
+
+
+void DrawCheckedPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid, int chosenID, int playerID) {
+    int isChosen = 0;
+    int isPlayer = 0;
+#define THICKNESS 20
+
+    float horiz = sqrtf(3) * radius / 2.0f;
+    float vert = radius / 2.0f;
+
+    static double oscilations = 0;
+    unsigned char currentPosition = (unsigned char)(127.5 * (sin(oscilations) + 1));
+    Color currentColor = { .r = currentPosition, .g = currentPosition, .b = currentPosition, .a = 255 };
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (checkDrawLine(x, y, (y & 1) - 1, -1, grid, chosenID, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert
+                },
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius
+                },
+                    THICKNESS,
+                    isChosen ? currentColor : isPlayer ? WHITE : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, (y & 1) - 1, 1, grid, chosenID, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert
+                },
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius
+                },
+                    THICKNESS,
+                    isChosen ? currentColor : isPlayer ? WHITE : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, y & 1, 1, grid, chosenID, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert
+                },
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y + radius
+                },
+                    THICKNESS,
+                    isChosen ? currentColor : isPlayer ? WHITE : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, y & 1, -1, grid, chosenID, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert
+                },
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x, grid[x][y].screen_coordinates.y - radius
+                },
+                    THICKNESS,
+                    isChosen ? currentColor : isPlayer ? WHITE : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, -1, 0, grid, chosenID, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y + vert
+                },
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x - horiz, grid[x][y].screen_coordinates.y - vert
+                },
+                    THICKNESS,
+                    isChosen ? currentColor : isPlayer ? WHITE : BLACK
+                );
+            }
+            if (checkDrawLine(x, y, 1, 0, grid, chosenID, &isChosen, playerID, &isPlayer)) {
+                DrawLineEx(
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y + vert
+                },
+                    (Vector2) {
+                    grid[x][y].screen_coordinates.x + horiz, grid[x][y].screen_coordinates.y - vert
+                },
+                    THICKNESS,
+                    isChosen ? currentColor : isPlayer ? WHITE : BLACK
+                );
+            }
+        }
+    }
+
+    oscilations += 0.02;
+#undef THICKNESS
 };
 
 void DEBUG_DrawCoordinatesOnHexGrid(int radius, int width, int height, struct GridTile** grid) {

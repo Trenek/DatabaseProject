@@ -85,6 +85,15 @@
     <Filter Include="Pliki źródłowe\additions\createCamera">
       <UniqueIdentifier>{0cb45cba-529d-4121-9f29-fb22de057aef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\query\GetDimensions">
+      <UniqueIdentifier>{f9c83f50-57fe-49ce-8e39-1cd67cfba6c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\CheckIfReady">
+      <UniqueIdentifier>{2706d25a-eb93-4ed7-9c11-e30b75cc44cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\RemovePlayer">
+      <UniqueIdentifier>{7084bfef-46e8-487f-90c6-b06e386fdfa2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -180,6 +189,18 @@
     <ClCompile Include="AssignCivilization.c">
       <Filter>Pliki źródłowe\query\AssignCivilization</Filter>
     </ClCompile>
+    <ClCompile Include="getDimensions.c">
+      <Filter>Pliki źródłowe\query\GetDimensions</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckIfReady.c">
+      <Filter>Pliki źródłowe\query\CheckIfReady</Filter>
+    </ClCompile>
+    <ClCompile Include="play.c">
+      <Filter>Pliki źródłowe\state</Filter>
+    </ClCompile>
+    <ClCompile Include="RemovePlayer.c">
+      <Filter>Pliki źródłowe\query\RemovePlayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">
@@ -256,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="createCamera.h">
       <Filter>Pliki źródłowe\additions\createCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="getDimensions.h">
+      <Filter>Pliki źródłowe\query\GetDimensions</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckIfReady.h">
+      <Filter>Pliki źródłowe\query\CheckIfReady</Filter>
+    </ClInclude>
+    <ClInclude Include="RemovePlayer.h">
+      <Filter>Pliki źródłowe\query\RemovePlayer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

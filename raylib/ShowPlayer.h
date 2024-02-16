@@ -1,1 +1,1 @@
-int ShowPlayer(char* playerName, char* civilizationName, int* playerID, int gameSession, int position);
+int ShowPlayer(char* playerName, char* civilizationName, int* playerID, int* civilizationID, int gameSession, int position);

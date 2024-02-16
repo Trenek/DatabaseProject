@@ -147,11 +147,13 @@
     <ClCompile Include="AddPlayer.c" />
     <ClCompile Include="AddUser.c" />
     <ClCompile Include="AssignCivilization.c" />
+    <ClCompile Include="CheckIfReady.c" />
     <ClCompile Include="createGame.c" />
     <ClCompile Include="createGameSession.c" />
     <ClCompile Include="drawMenuElement.c" />
     <ClCompile Include="gameSetup.c" />
     <ClCompile Include="GetCivilizations.c" />
+    <ClCompile Include="getDimensions.c" />
     <ClCompile Include="getGameSessions.c" />
     <ClCompile Include="GetMaps.c" />
     <ClCompile Include="GetPoliticalDivision.c" />
@@ -169,22 +171,26 @@
     <ClCompile Include="pause.c" />
     <ClCompile Include="cube.c" />
     <ClCompile Include="loadGame.c" />
+    <ClCompile Include="play.c" />
     <ClCompile Include="playerList.c" />
     <ClCompile Include="ProvinceTextures.c" />
     <ClCompile Include="query.c" />
     <ClCompile Include="DatbaseProject.c" />
     <ClCompile Include="register.c" />
+    <ClCompile Include="RemovePlayer.c" />
     <ClCompile Include="ShowPlayer.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddPlayer.h" />
     <ClInclude Include="AddUser.h" />
     <ClInclude Include="AssignCivilization.h" />
+    <ClInclude Include="CheckIfReady.h" />
     <ClInclude Include="createCamera.h" />
     <ClInclude Include="createGameSession.h" />
     <ClInclude Include="drawMenuElement.h" />
     <ClInclude Include="gameInformations.h" />
     <ClInclude Include="GetCivilizations.h" />
+    <ClInclude Include="getDimensions.h" />
     <ClInclude Include="getGameSessions.h" />
     <ClInclude Include="GetMaps.h" />
     <ClInclude Include="GetPoliticalDivision.h" />
@@ -200,6 +206,7 @@
     <ClInclude Include="position.h" />
     <ClInclude Include="ProvinceTextures.h" />
     <ClInclude Include="query.h" />
+    <ClInclude Include="RemovePlayer.h" />
     <ClInclude Include="ShowPlayer.h" />
     <ClInclude Include="state.h" />
   </ItemGroup>

@@ -1,0 +1,1 @@
+void RemovePlayer(int playerID);

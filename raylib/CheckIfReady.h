@@ -1,0 +1,1 @@
+int checkIfReady(int sessionID);

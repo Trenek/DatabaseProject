@@ -1,7 +1,6 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
-#include <math.h>
 
 #include <raylib.h>
 
@@ -22,6 +21,9 @@
 #include "GetPoliticalDivision.h"
 #include "AssignCivilization.h"
 #include "createCamera.h"
+#include "getDimensions.h"
+#include "CheckIfReady.h"
+#include "RemovePlayer.h"
 
 static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city) {
     extern struct gameInformations info;
@@ -34,6 +36,8 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
     int frontSize = 40;
     Vector2 chosen = { -1, -1 };
 
+    GetSessionDimensions(&width, &height, info.sessionID);
+    
     Camera2D camera1 = createCamera(width, height, radius);
 
     RenderTexture screenCamera1 = LoadRenderTexture(GetScreenWidth(), GetScreenHeight() + 20);
@@ -79,7 +83,8 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
                     DrawCity(radius, width, height, grid, city);
                 }
                 DrawClickedCivilization(radius, width, height, grid);
-                DrawPoliticalGridOutline(radius, width, height, grid);
+                DrawNormalPoliticalGridOutline(radius, width, height, grid, -1, BLACK);
+                DrawChosenPoliticalGridOutline(radius, width, height, grid, chosen.x > -1 ? civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].CivilizationID : 0);
                 DrawHexGridOutline(radius, width, height, grid);
                 drawMenuElement("Choose Your Country Fellow Citizen", frontSize, (int)(sqrtf(3) * radius * width / 2.0), 0, 10, 10, NULL, NULL);
             EndMode2D();
@@ -88,7 +93,7 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
                 if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) {
                     DrawRectangle(0, GetScreenHeight() - 240, GetScreenWidth() / 2, 240, (Color) { .r = 0, .g = 0, .b = 0, .a = 255 });
                     DrawText("Civilization", (GetScreenWidth() / 4) - (MeasureText("Civilization", 20) / 2), GetScreenHeight() - 190, 20, (Color) { .r = 255, .g = 255, .b = 255, .a = 255 });
-                    DrawText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, (GetScreenWidth() / 4) - (MeasureText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, 20) / 2), GetScreenHeight() - 140, 20, (Color) { .r = 255, .g = 255, .b = 255, .a = 255 });
+                    DrawText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, (GetScreenWidth() / 4) - (MeasureText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, 20) / 2), GetScreenHeight() - 140, 20, BLACK);
                     if (error == 1) drawTextWithBoxBehind(errorMessage, 20, GetScreenWidth() / 4, GetScreenHeight() - 90, 400, 40, &(Color) {.r = 255, .g = 255, .b = 255, .a = 255 });
 
                     drawMenuElement("Choose", 20, GetScreenWidth() / 4, GetScreenHeight() - 40, 10, 10, &color2, &color3);
@@ -177,8 +182,8 @@ static int addPlayer(void) {
     int success = 0;
     int ID = 0;
 
-    nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
-    playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+    nextExists = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page + 1);
+    playerNr = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page);
     while (!WindowShouldClose() && !exit) {
         BeginDrawing();
 
@@ -293,14 +298,15 @@ void gameSetup(enum state* state) {
     Texture2D* texture = LoadTextures(&size);
     Texture2D city[2];
     int reload = 1;
+    int error = 0;
 
     addCityTexture(city, size);
 
     while (!WindowShouldClose() && *state == GAME_SETUP) {
         if (reload == 1) {
-            nextExists = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page + 1);
+            nextExists = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page + 1);
             strcpy(civilizationName, "Civilization");
-            playerNr = ShowPlayer(playerName, civilizationName, &playerID, info.sessionID, page);
+            playerNr = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page);
             reload = 0;
         }
 
@@ -315,11 +321,21 @@ void gameSetup(enum state* state) {
         if (page > 1) drawMenuElement("Previous", 20, (GetScreenWidth() >> 1) - 110, (GetScreenHeight() >> 1) - 150, 10, 10, &color2, &color3);
         drawMenuElement(playerName, 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) - 90, 10, 10, &color2, &color2);
         drawMenuElement(civilizationName, 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) - 40, 10, 10, &color2, &color3);
+        if (page > 1) drawMenuElement("Remove Player", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 10, 10, 10, &color2, &color3);
+        drawMenuElement("Start Game", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 150, 10, 10, &color2, &color3);
+        if (error) drawTextWithBoxBehind("Choose Civilizations for all players", 20, (GetScreenWidth() >> 1), (GetScreenHeight() >> 1) + 100, 400, 40, &WHITE);
 
         EndDrawing();
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            clickAndChangeState(state, "Create New Game", 20, (GetScreenWidth() >> 1) - 100, (GetScreenHeight() >> 1) + 150, 10, 10, CREATE_NEW_GAME);
+            if (isMouseInRange(GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 150, 10, 10, 20, "Start Game")) {
+                if (checkIfReady(info.sessionID)) {
+                    *state = PLAY;
+                }
+                else {
+                    error = 1;
+                }
+            }
             clickAndChangeState(state, "Back", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 200, 10, 10, LOAD_GAME);
 
             if (nextExists > 0) {
@@ -336,10 +352,16 @@ void gameSetup(enum state* state) {
                     }
                 }
             }
-            if (page > 1)
-            if (isMouseInRange((GetScreenWidth() >> 1) - 110, (GetScreenHeight() >> 1) - 150, 10, 10, 20, "Previous")) {
-                page -= 1;
-                reload = 1;
+            if (page > 1) {
+                if (isMouseInRange((GetScreenWidth() >> 1) - 110, (GetScreenHeight() >> 1) - 150, 10, 10, 20, "Previous")) {
+                    page -= 1;
+                    reload = 1;
+                }
+                if (isMouseInRange((GetScreenWidth() >> 1), (GetScreenHeight() >> 1) + 10, 10, 10, 20, "Remove Player")) {
+                    RemovePlayer(playerID);
+                    page -= 1;
+                    reload = 1;
+                }
             }
 
             if (isMouseInRange(GetScreenWidth() >> 1, (GetScreenHeight() >> 1) - 40, 10, 10, 20, civilizationName)) {

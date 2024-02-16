@@ -21,5 +21,14 @@ struct Civilization {
 
 struct Civilization* GetCivilizations(int mapID);
 struct Civilization* GetSessionCivilizations(int sessionID);
+inline int getNr(struct Civilization* civilizations, int civilizationID) {
+    int i = 0;
+
+    while (civilizations[i].CivilizationID != civilizationID) {
+        i += 1;
+    }
+
+    return i;
+}
 
 #endif

@@ -60,7 +60,8 @@
     void DrawHexGridOutline(int radius, int width, int height, struct GridTile** grid);
     void DrawPoliticalDivision(int radius, int width, int height, struct GridTile** grid, struct Civilization* civilizations);
     void DrawCity(int radius, int width, int height, struct GridTile** grid, Texture2D* house);
-    void DrawPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid);
+    void DrawChosenPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid, int chosenID);
+    void DrawNormalPoliticalGridOutline(int radius, int width, int height, struct GridTile** grid, int playerID, Color playerColor);
     void DrawClickedProvince(int radius, int width, int height, struct GridTile** grid);
     void DrawClickedCivilization(int radius, int width, int height, struct GridTile** grid);
 #endif

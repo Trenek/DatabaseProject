@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 
 #include <raylib.h>
 
@@ -13,15 +12,18 @@
 #include "GetPoliticalDivision.h"
 #include "LoadingScreen.h"
 #include "createCamera.h"
+#include "getDimensions.h"
 
 void mapDebug(enum state* state) {
-    const int width = 25;
-    const int height = 25;
+    int width = 0;
+    int height = 0;
     int radius = 40;
     int frontSize = 40;
     Vector2 chosen = { 0, 0 };
 
     int size = 0;
+
+    GetMapDimensions(&width, &height, 1);
 
     Camera2D camera1 = createCamera(width, height, radius);
 
@@ -68,9 +70,8 @@ void mapDebug(enum state* state) {
                     DrawPoliticalDivision(radius, width, height, grid, civilizations);
                     DrawCity(radius, width, height, grid, city);
                 }
-                //DrawClickedProvince(radius, width, height, grid);
                 DrawClickedCivilization(radius, width, height, grid);
-                DrawPoliticalGridOutline(radius, width, height, grid);
+                DrawNormalPoliticalGridOutline(radius, width, height, grid, -1, BLACK);
                 DrawHexGridOutline(radius, width, height, grid);
                 drawMenuElement("Choose Your Country Fellow Citizen", frontSize, (int)(sqrtf(3) * radius * width / 2.0), 0, 10, 10, NULL, NULL);
             EndMode2D();
@@ -79,7 +80,6 @@ void mapDebug(enum state* state) {
         BeginDrawing();
         ClearBackground(BROWN);
         DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
-        DrawText(TextFormat("%.0f, %.0f, %.0f, %.0f, %.0%%f", camera1.offset.x, camera1.offset.y, camera1.target.x, camera1.target.y, camera1.zoom * 100), 0, 0, 40, BLACK);
 
         EndDrawing();
 

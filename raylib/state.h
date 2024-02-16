@@ -14,6 +14,7 @@ enum state {
     LOGIN,
     GAME_SETUP,
     MAP_DEBUG,
+    PLAY,
     PAUSE,
     EXIT
 };
@@ -34,5 +35,6 @@ void createGame(enum state* state);
 void login(enum state* state);
 void gameSetup(enum state* state);
 void mapDebug(enum state* state);
+void play(enum state* state);
 
 #endif

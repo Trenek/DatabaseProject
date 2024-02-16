@@ -21,7 +21,8 @@ int main(void) {
         [CREATE_NEW_GAME] = createGame,
         [LOGIN] = login,
         [GAME_SETUP] = gameSetup,
-        [MAP_DEBUG] = mapDebug
+        [MAP_DEBUG] = mapDebug,
+        [PLAY] = play
     };
 
 #ifdef FULLSCREEN
