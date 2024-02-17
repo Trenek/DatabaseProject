@@ -145,21 +145,17 @@ void play(enum state* state) {
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             checkClick(height, width, radius, grid, &chosen, camera1);
+            topLayer.layers = 0;
             if (chosen.x != -1) { 
                 GetProvinceInformation(info.sessionID, (int)chosen.x, (int)chosen.y, &provinceInfo); 
                 topLayer.indivLayers.provinceInfo = 1;
             }
-            else {
-                topLayer.layers = 0;
-            }
         }
-        if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+        else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
             checkClick(height, width, radius, grid, &chosen, camera1);
+            topLayer.layers = 0;
             if (chosen.x != -1) {
                 topLayer.indivLayers.countryInfo = 1;
-            }
-            else {
-                topLayer.layers = 0;
             }
         }
 
