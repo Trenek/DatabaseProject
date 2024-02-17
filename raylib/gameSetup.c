@@ -93,7 +93,7 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
                 if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) {
                     DrawRectangle(0, GetScreenHeight() - 240, GetScreenWidth() / 2, 240, (Color) { .r = 0, .g = 0, .b = 0, .a = 255 });
                     DrawText("Civilization", (GetScreenWidth() / 4) - (MeasureText("Civilization", 20) / 2), GetScreenHeight() - 190, 20, (Color) { .r = 255, .g = 255, .b = 255, .a = 255 });
-                    DrawText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, (GetScreenWidth() / 4) - (MeasureText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, 20) / 2), GetScreenHeight() - 140, 20, BLACK);
+                    DrawText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, (GetScreenWidth() / 4) - (MeasureText(civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].name, 20) / 2), GetScreenHeight() - 140, 20, WHITE);
                     if (error == 1) drawTextWithBoxBehind(errorMessage, 20, GetScreenWidth() / 4, GetScreenHeight() - 90, 400, 40, &(Color) {.r = 255, .g = 255, .b = 255, .a = 255 });
 
                     drawMenuElement("Choose", 20, GetScreenWidth() / 4, GetScreenHeight() - 40, 10, 10, &color2, &color3);

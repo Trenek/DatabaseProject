@@ -157,6 +157,7 @@
     <ClCompile Include="getGameSessions.c" />
     <ClCompile Include="GetMaps.c" />
     <ClCompile Include="GetPoliticalDivision.c" />
+    <ClCompile Include="GetProvinceInformation.c" />
     <ClCompile Include="GetProvinces.c" />
     <ClCompile Include="GetTerrain.c" />
     <ClCompile Include="GetUsers.c" />
@@ -194,6 +195,7 @@
     <ClInclude Include="getGameSessions.h" />
     <ClInclude Include="GetMaps.h" />
     <ClInclude Include="GetPoliticalDivision.h" />
+    <ClInclude Include="GetProvinceInformation.h" />
     <ClInclude Include="GetProvinces.h" />
     <ClInclude Include="GetTerrain.h" />
     <ClInclude Include="GetUsers.h" />

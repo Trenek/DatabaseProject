@@ -94,6 +94,9 @@
     <Filter Include="Pliki źródłowe\query\RemovePlayer">
       <UniqueIdentifier>{7084bfef-46e8-487f-90c6-b06e386fdfa2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\query\GetProvinceInformation">
+      <UniqueIdentifier>{3a3a28ba-f204-4f7f-8a91-efb978a713eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -201,6 +204,9 @@
     <ClCompile Include="RemovePlayer.c">
       <Filter>Pliki źródłowe\query\RemovePlayer</Filter>
     </ClCompile>
+    <ClCompile Include="GetProvinceInformation.c">
+      <Filter>Pliki źródłowe\query\GetProvinceInformation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">
@@ -286,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="RemovePlayer.h">
       <Filter>Pliki źródłowe\query\RemovePlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="GetProvinceInformation.h">
+      <Filter>Pliki źródłowe\query\GetProvinceInformation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

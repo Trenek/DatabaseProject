@@ -14,14 +14,24 @@
 #include "createCamera.h"
 #include "GetPoliticalDivision.h"
 #include "ShowPlayer.h"
+#include "GetProvinceInformation.h"
+
+union layers {
+    struct layersS {
+        unsigned char provinceInfo : 1;
+        unsigned char countryInfo : 1;
+    } indivLayers;
+    unsigned char layers;
+};
 
 void play(enum state* state) {
     extern struct gameInformations info;
 
+    union layers topLayer = { 0 };
+
     int width = 0;
     int height = 0;
     int radius = 40;
-    int frontSize = 40;
 
     Vector2 chosen = { -1, -1 };
 
@@ -41,7 +51,6 @@ void play(enum state* state) {
     struct Civilization* civilizations = GetSessionCivilizations(info.sessionID);
 
     bool political = true;
-    bool leftClicked = false;
     int position = 1;
     char playerName[512] = { 0 };
     char civilizationName[512] = { 0 };
@@ -51,6 +60,8 @@ void play(enum state* state) {
     char topBuffor[512] = { 0 };
 
     bool updatePlayer = true;
+
+    struct provinceInformation provinceInfo = { 0 };
 
     GetSessionPoliticalDivision(grid, info.sessionID);
 
@@ -65,7 +76,7 @@ void play(enum state* state) {
             updatePlayer = true;
         }
         if (IsKeyPressed(KEY_D)) {
-            if (ShowPlayer(playerName, civilizationName, &playerID, &civilizationID, info.sessionID, position)) {
+            if (ShowPlayer(playerName, civilizationName, &playerID, &civilizationID, info.sessionID, position + 1)) {
                 position += 1;
             }
             updatePlayer = true;
@@ -76,6 +87,8 @@ void play(enum state* state) {
             civilizationNr = getNr(civilizations, civilizationID);
             sprintf(topBuffor, "%s - %s", playerName, civilizationName);
             updatePlayer = false;
+            chosen = (Vector2){ -1, -1 };
+            camera1 = createCamera(width, height, radius);
         }
 
         if (IsKeyDown(KEY_LEFT)) camera1.target.x -= 1 / camera1.zoom;
@@ -99,22 +112,27 @@ void play(enum state* state) {
                     DrawPoliticalDivision(radius, width, height, grid, civilizations);
                     DrawCity(radius, width, height, grid, city);
                 }
-                if (!leftClicked) DrawClickedCivilization(radius, width, height, grid);
-                else DrawClickedProvince(radius, width, height, grid);
+                if (topLayer.indivLayers.countryInfo) DrawClickedCivilization(radius, width, height, grid);
+                if (topLayer.indivLayers.provinceInfo) DrawClickedProvince(radius, width, height, grid);
                 DrawNormalPoliticalGridOutline(radius, width, height, grid, civilizationID, civilizations[civilizationNr].color);
-                if (!leftClicked && (chosen.x != -1))
+                if (topLayer.indivLayers.countryInfo)
                 if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) 
                     DrawChosenPoliticalGridOutline(radius, width, height, grid, grid[(int)chosen.x][(int)chosen.y].civilizationID);
                 DrawHexGridOutline(radius, width, height, grid);
-                drawMenuElement(topBuffor, frontSize, (int)(sqrtf(3) * radius * width / 2.0), 0, 10, 10, NULL, NULL);
+                drawMenuElement(topBuffor, radius * 2, (int)(sqrtf(3) * radius * width / 2.0), -radius, 10, 10, NULL, NULL);
             EndMode2D();
 
-            if (chosen.x != -1)
-            if (leftClicked) {
+            DrawRectangle(0, 0, GetScreenWidth(), 40, (Color) { .r = 0, .g = 0, .b = 0, .a = 230 });
+            DrawText(TextFormat("%-20s", playerName), 0, 5, 20, RAYWHITE);
+            if (position == 1) DrawText("Next Tur", GetScreenWidth() - MeasureText("Next Tur", 20), 5, 20, RAYWHITE);
+            if (topLayer.indivLayers.provinceInfo) {
                 DrawRectangle(0, GetScreenHeight() >> 1, GetScreenWidth() >> 1, GetScreenHeight() >> 1, (Color) { .r = 0, .g = 0, .b = 0, .a = 230 });
+                DrawText(TextFormat("Terrain: %s", provinceInfo.terrainName), 0, (GetScreenHeight() >> 1) + 50, 20, RAYWHITE);
+                DrawText(TextFormat("Region: %s", (*provinceInfo.regionName == 0) ? "None" : provinceInfo.regionName), 0, (GetScreenHeight() >> 1) + 90, 20, RAYWHITE);
+                DrawText(TextFormat("City: %s", (*provinceInfo.cityName == 0) ? "None" : provinceInfo.cityName), 0, (GetScreenHeight() >> 1) + 130, 20, RAYWHITE);
             }
-            else if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) {
-                DrawRectangle(0, GetScreenHeight() >> 2, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + (GetScreenHeight() >> 2), BLACK);
+            else if (topLayer.indivLayers.countryInfo) if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) {
+                DrawRectangle(0, GetScreenHeight() >> 2, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + (GetScreenHeight() >> 2), (Color) { .r = 0, .g = 0, .b = 0, .a = 230 });
             }
         EndTextureMode();
 
@@ -127,11 +145,22 @@ void play(enum state* state) {
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             checkClick(height, width, radius, grid, &chosen, camera1);
-            leftClicked = true;
+            if (chosen.x != -1) { 
+                GetProvinceInformation(info.sessionID, (int)chosen.x, (int)chosen.y, &provinceInfo); 
+                topLayer.indivLayers.provinceInfo = 1;
+            }
+            else {
+                topLayer.layers = 0;
+            }
         }
         if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
             checkClick(height, width, radius, grid, &chosen, camera1);
-            leftClicked = false;
+            if (chosen.x != -1) {
+                topLayer.indivLayers.countryInfo = 1;
+            }
+            else {
+                topLayer.layers = 0;
+            }
         }
 
         if (IsKeyPressed(KEY_P)) {
