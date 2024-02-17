@@ -102,7 +102,9 @@ void play(enum state* state) {
                 if (!leftClicked) DrawClickedCivilization(radius, width, height, grid);
                 else DrawClickedProvince(radius, width, height, grid);
                 DrawNormalPoliticalGridOutline(radius, width, height, grid, civilizationID, civilizations[civilizationNr].color);
-                if (!leftClicked && (chosen.x != -1)) DrawChosenPoliticalGridOutline(radius, width, height, grid, civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].CivilizationID);
+                if (!leftClicked && (chosen.x != -1))
+                if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) 
+                    DrawChosenPoliticalGridOutline(radius, width, height, grid, grid[(int)chosen.x][(int)chosen.y].civilizationID);
                 DrawHexGridOutline(radius, width, height, grid);
                 drawMenuElement(topBuffor, frontSize, (int)(sqrtf(3) * radius * width / 2.0), 0, 10, 10, NULL, NULL);
             EndMode2D();

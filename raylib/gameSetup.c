@@ -84,7 +84,7 @@ static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city
                 }
                 DrawClickedCivilization(radius, width, height, grid);
                 DrawNormalPoliticalGridOutline(radius, width, height, grid, -1, BLACK);
-                DrawChosenPoliticalGridOutline(radius, width, height, grid, chosen.x > -1 ? civilizations[grid[(int)chosen.x][(int)chosen.y].civilizationNumber].CivilizationID : 0);
+                DrawChosenPoliticalGridOutline(radius, width, height, grid, chosen.x > -1 ? grid[(int)chosen.x][(int)chosen.y].civilizationID : 0);
                 DrawHexGridOutline(radius, width, height, grid);
                 drawMenuElement("Choose Your Country Fellow Citizen", frontSize, (int)(sqrtf(3) * radius * width / 2.0), 0, 10, 10, NULL, NULL);
             EndMode2D();
