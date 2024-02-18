@@ -153,6 +153,7 @@
     <ClCompile Include="drawMenuElement.c" />
     <ClCompile Include="gameSetup.c" />
     <ClCompile Include="GetCivilizations.c" />
+    <ClCompile Include="GetCurrentDate.c" />
     <ClCompile Include="getDimensions.c" />
     <ClCompile Include="getGameSessions.c" />
     <ClCompile Include="GetMaps.c" />
@@ -191,6 +192,7 @@
     <ClInclude Include="drawMenuElement.h" />
     <ClInclude Include="gameInformations.h" />
     <ClInclude Include="GetCivilizations.h" />
+    <ClInclude Include="GetCurrentDate.h" />
     <ClInclude Include="getDimensions.h" />
     <ClInclude Include="getGameSessions.h" />
     <ClInclude Include="GetMaps.h" />

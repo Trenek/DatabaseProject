@@ -15,6 +15,7 @@
 #include "GetPoliticalDivision.h"
 #include "ShowPlayer.h"
 #include "GetProvinceInformation.h"
+#include "GetCurrentDate.h"
 
 union layers {
     struct layersS {
@@ -62,6 +63,7 @@ void play(enum state* state) {
     bool updatePlayer = true;
 
     struct provinceInformation provinceInfo = { 0 };
+    char date[512] = { 0 };
 
     GetSessionPoliticalDivision(grid, info.sessionID);
 
@@ -84,6 +86,7 @@ void play(enum state* state) {
 
         if (updatePlayer) {
             ShowPlayer(playerName, civilizationName, &playerID, &civilizationID, info.sessionID, position);
+            if (position == 1) GetCurrentDate(date, info.sessionID);
             civilizationNr = getNr(civilizations, civilizationID);
             sprintf(topBuffor, "%s - %s", playerName, civilizationName);
             updatePlayer = false;
@@ -116,7 +119,7 @@ void play(enum state* state) {
                 if (topLayer.indivLayers.provinceInfo) DrawClickedProvince(radius, width, height, grid);
                 DrawNormalPoliticalGridOutline(radius, width, height, grid, civilizationID, civilizations[civilizationNr].color);
                 if (topLayer.indivLayers.countryInfo)
-                if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) 
+                if (chosen.x > -1) if (grid[(int)chosen.x][(int)chosen.y].civilizationID > 0) 
                     DrawChosenPoliticalGridOutline(radius, width, height, grid, grid[(int)chosen.x][(int)chosen.y].civilizationID);
                 DrawHexGridOutline(radius, width, height, grid);
                 drawMenuElement(topBuffor, radius * 2, (int)(sqrtf(3) * radius * width / 2.0), -radius, 10, 10, NULL, NULL);
@@ -124,7 +127,7 @@ void play(enum state* state) {
 
             DrawRectangle(0, 0, GetScreenWidth(), 40, (Color) { .r = 0, .g = 0, .b = 0, .a = 230 });
             DrawText(TextFormat("%-20s", playerName), 0, 5, 20, RAYWHITE);
-            if (position == 1) DrawText("Next Tur", GetScreenWidth() - MeasureText("Next Tur", 20), 5, 20, RAYWHITE);
+            if (position == 1) drawMenuElement(date, 20, GetScreenWidth() - (MeasureText(date, 20) / 2) - 10, 10, 5, 5, NULL, &RAYWHITE);
             if (topLayer.indivLayers.provinceInfo) {
                 DrawRectangle(0, GetScreenHeight() >> 1, GetScreenWidth() >> 1, GetScreenHeight() >> 1, (Color) { .r = 0, .g = 0, .b = 0, .a = 230 });
                 DrawText(TextFormat("Terrain: %s", provinceInfo.terrainName), 0, (GetScreenHeight() >> 1) + 50, 20, RAYWHITE);
