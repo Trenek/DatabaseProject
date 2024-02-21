@@ -13,6 +13,7 @@
 #include "LoadingScreen.h"
 #include "createCamera.h"
 #include "getDimensions.h"
+#include "modifyBackgroundColor.h"
 
 void mapDebug(enum state* state) {
     int width = 0;
@@ -20,7 +21,9 @@ void mapDebug(enum state* state) {
     int radius = 40;
     int frontSize = 40;
     Vector2 chosen = { 0, 0 };
-
+    //Color color = { 100, 100, 100, 255 };
+    //Color color2 = { .r = 78, .g = 215, .b = 50, .a = 255 };
+    //Color color3 = { .r = 78, .g = 215, .b = 50, .a = 105 };
     int size = 0;
 
     GetMapDimensions(&width, &height, 1);
@@ -64,6 +67,7 @@ void mapDebug(enum state* state) {
             ClearBackground(BROWN);
 
             BeginMode2D(camera1);
+                //DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
                 GenerateHexGrid(radius, width, height, grid);
                 DrawVisibleFields(radius, width, height, grid, city);
                 if (political) {
@@ -77,9 +81,8 @@ void mapDebug(enum state* state) {
             EndMode2D();
         EndTextureMode();
 
-        BeginDrawing();
-        ClearBackground(BROWN);
-        DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
+
+
 
         EndDrawing();
 
@@ -94,6 +97,7 @@ void mapDebug(enum state* state) {
         if (IsKeyPressed(KEY_M)) {
             political = !political;
         }
+        //clickAndChangeState(state, "Back", 20, GetScreenWidth() >> 1, (GetScreenHeight() >> 1) + 200, 10, 10, MENU);
     }
 
     free(civilizations);
@@ -101,4 +105,5 @@ void mapDebug(enum state* state) {
     UnloadTextures(texture, size);
     UnloadTexture(city[0]);
     UnloadTexture(city[1]);
+
 }
