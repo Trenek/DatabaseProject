@@ -20,7 +20,6 @@ void mapDebug(enum state* state) {
     int radius = 40;
     int frontSize = 40;
     Vector2 chosen = { 0, 0 };
-
     int size = 0;
 
     GetMapDimensions(&width, &height, 1);
@@ -78,9 +77,8 @@ void mapDebug(enum state* state) {
         EndTextureMode();
 
         BeginDrawing();
-        ClearBackground(BROWN);
-        DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
-
+            ClearBackground(BROWN);
+            DrawTextureRec(screenCamera1.texture, splitScreenRect, (Vector2) { 0, 0 }, WHITE);
         EndDrawing();
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -101,4 +99,5 @@ void mapDebug(enum state* state) {
     UnloadTextures(texture, size);
     UnloadTexture(city[0]);
     UnloadTexture(city[1]);
+
 }
