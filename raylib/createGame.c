@@ -7,9 +7,9 @@
 #include "gameInformations.h"
 
 #include "drawMenuElement.h"
-#include "createGameSession.h"
+
 #include "GetMaps.h"
-#include "getGameSessions.h"
+#include "GameSession.h"
 
 inline Rectangle getRectangle(int x, int y, int incX, int incY) {
     return (Rectangle) { .x = (float)(x - (incX >> 1)), .y = (float)(y - (incY >> 2)), .width = (float)incX, .height = (float)incY };

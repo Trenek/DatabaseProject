@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "query.h"
-#include "getGameSessions.h"
+#include "GameSession.h"
 
 static int getGameSession(SQLHANDLE SQLStatementHandle, void* message) {
 	struct gameSession* gameSession = (struct gameSession*)message;

@@ -1,1 +1,0 @@
-int GetCurrentDate(char* date, int sessionID);

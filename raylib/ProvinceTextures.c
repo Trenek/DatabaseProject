@@ -4,7 +4,7 @@
 
 #include <raylib.h>
 
-#include "GetTerrain.h"
+#include "Terrain.h"
 
 static void LoadingScreen(int current, int max) {
     char buffor[8] = { 0 };

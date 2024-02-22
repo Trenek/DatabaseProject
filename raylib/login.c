@@ -8,7 +8,7 @@
 #include "gameInformations.h"
 
 #include "drawMenuElement.h"
-#include "logInQuery.h"
+#include "User.h"
 
 void login(enum state* state) {
     extern struct gameInformations info;

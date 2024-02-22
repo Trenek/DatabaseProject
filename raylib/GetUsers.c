@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "query.h"
-#include "GetUsers.h"
+#include "User.h"
 
 static int getUsers(SQLHANDLE SQLStatementHandle, void* message) {
 	struct player* players = (struct player*)message;

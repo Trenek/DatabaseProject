@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 #include "query.h"
-#include "getGameSessions.h"
 #include "GridTileDef.h"
 
 struct twoVariables {

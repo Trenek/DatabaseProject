@@ -1,1 +1,0 @@
-void AddUser(char* errorMessage, const char* login, const char* password, const char* email);

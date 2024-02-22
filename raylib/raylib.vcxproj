@@ -110,7 +110,7 @@
       <TranslateIncludes>false</TranslateIncludes>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
-      <DisableSpecificWarnings>4100;4820;5045;4774</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4820;5045;4774;4244</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,7 +132,7 @@
       <TranslateIncludes>false</TranslateIncludes>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
-      <DisableSpecificWarnings>4100;4820;5045;4774</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4820;5045;4774;4244</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,11 +147,14 @@
     <ClCompile Include="AddPlayer.c" />
     <ClCompile Include="AddUser.c" />
     <ClCompile Include="AssignCivilization.c" />
+    <ClCompile Include="BuildCity.c" />
     <ClCompile Include="CheckIfReady.c" />
     <ClCompile Include="createGame.c" />
     <ClCompile Include="createGameSession.c" />
     <ClCompile Include="drawMenuElement.c" />
     <ClCompile Include="gameSetup.c" />
+    <ClCompile Include="GetBuildingType.c" />
+    <ClCompile Include="GetCityConstructionDate.c" />
     <ClCompile Include="GetCivilizations.c" />
     <ClCompile Include="GetCurrentDate.c" />
     <ClCompile Include="getDimensions.c" />
@@ -181,38 +184,32 @@
     <ClCompile Include="register.c" />
     <ClCompile Include="RemovePlayer.c" />
     <ClCompile Include="ShowPlayer.c" />
+    <ClCompile Include="UpdateCurrentDate.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AddPlayer.h" />
-    <ClInclude Include="AddUser.h" />
-    <ClInclude Include="AssignCivilization.h" />
-    <ClInclude Include="CheckIfReady.h" />
     <ClInclude Include="createCamera.h" />
-    <ClInclude Include="createGameSession.h" />
     <ClInclude Include="drawMenuElement.h" />
     <ClInclude Include="gameInformations.h" />
+    <ClInclude Include="GameSession.h" />
     <ClInclude Include="GetCivilizations.h" />
-    <ClInclude Include="GetCurrentDate.h" />
     <ClInclude Include="getDimensions.h" />
-    <ClInclude Include="getGameSessions.h" />
     <ClInclude Include="GetMaps.h" />
     <ClInclude Include="GetPoliticalDivision.h" />
     <ClInclude Include="GetProvinceInformation.h" />
     <ClInclude Include="GetProvinces.h" />
-    <ClInclude Include="GetTerrain.h" />
-    <ClInclude Include="GetUsers.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="GridTileDef.h" />
     <ClInclude Include="inputBox.h" />
     <ClInclude Include="isMouseInRange.h" />
     <ClInclude Include="LoadingScreen.h" />
-    <ClInclude Include="logInQuery.h" />
     <ClInclude Include="modifyBackgroundColor.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="position.h" />
+    <ClInclude Include="Province.h" />
     <ClInclude Include="ProvinceTextures.h" />
     <ClInclude Include="query.h" />
-    <ClInclude Include="RemovePlayer.h" />
-    <ClInclude Include="ShowPlayer.h" />
     <ClInclude Include="state.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

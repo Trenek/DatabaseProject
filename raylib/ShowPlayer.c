@@ -7,6 +7,7 @@ struct player {
 	char* civilizationName;
 	int* playerID;
 	int* civilizationID;
+	int* gold;
 };
 
 static int showPlayer(SQLHANDLE SQLStatementHandle, void* message) {
@@ -21,6 +22,7 @@ static int showPlayer(SQLHANDLE SQLStatementHandle, void* message) {
 		SQLGetData(SQLStatementHandle, 3, SQL_C_DEFAULT, civName, sizeof(civName), NULL);
 		SQLGetData(SQLStatementHandle, 4, SQL_C_DEFAULT, player.playerID, sizeof(*player.playerID), NULL);
 		if (player.civilizationID != NULL) SQLGetData(SQLStatementHandle, 5, SQL_C_DEFAULT, player.civilizationID, sizeof(*player.civilizationID), NULL);
+		if (player.gold != NULL) SQLGetData(SQLStatementHandle, 6, SQL_C_DEFAULT, player.gold, sizeof(*player.gold), NULL);
 
 		if (*civName != 0) strcpy(player.civilizationName, civName);
 		strcpy(player.playerName, playerName);
@@ -29,10 +31,10 @@ static int showPlayer(SQLHANDLE SQLStatementHandle, void* message) {
 	return (int)nr;
 }
 
-int ShowPlayer(char* playerName, char* civilizationName, int* playerID, int* civilizationID, int gameSession, int position) {
+int ShowPlayer(char* playerName, char* civilizationName, int* playerID, int* civilizationID, int* gold, int gameSession, int position) {
 	char buffor[256];
 
 	sprintf(buffor, "EXECUTE dbo.[ShowPlayer] %i, %i", gameSession, position);
 
-	return QUERY(buffor, NULL, showPlayer, &(struct player) { playerName, civilizationName, playerID, civilizationID });
+	return QUERY(buffor, NULL, showPlayer, &(struct player) { playerName, civilizationName, playerID, civilizationID, gold });
 }

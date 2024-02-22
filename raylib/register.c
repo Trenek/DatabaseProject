@@ -6,7 +6,7 @@
 #include "inputBox.h"
 
 #include "drawMenuElement.h"
-#include "AddUser.h"
+#include "User.h"
 
 void Register(enum state* state) {
     Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };

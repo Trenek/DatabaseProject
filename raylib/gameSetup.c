@@ -9,21 +9,17 @@
 #include "GridTileDef.h"
 
 #include "drawMenuElement.h"
-#include "ShowPlayer.h"
 #include "inputBox.h"
 #include "ProvinceTextures.h"
 #include "LoadingScreen.h"
+#include "createCamera.h"
 
-#include "logInQuery.h"
-#include "AddUser.h"
-#include "AddPlayer.h"
+#include "Player.h"
+#include "GameSession.h"
+#include "User.h"
 #include "GetCivilizations.h"
 #include "GetPoliticalDivision.h"
-#include "AssignCivilization.h"
-#include "createCamera.h"
 #include "getDimensions.h"
-#include "CheckIfReady.h"
-#include "RemovePlayer.h"
 
 static void chooseCivilization(int playerID, Texture2D* texture, Texture2D* city) {
     extern struct gameInformations info;
@@ -182,8 +178,8 @@ static int addPlayer(void) {
     int success = 0;
     int ID = 0;
 
-    nextExists = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page + 1);
-    playerNr = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page);
+    nextExists = ShowPlayer(playerName, civilizationName, &playerID, NULL, NULL, info.sessionID, page + 1);
+    playerNr = ShowPlayer(playerName, civilizationName, &playerID, NULL, NULL, info.sessionID, page);
     while (!WindowShouldClose() && !exit) {
         BeginDrawing();
 
@@ -304,9 +300,9 @@ void gameSetup(enum state* state) {
 
     while (!WindowShouldClose() && *state == GAME_SETUP) {
         if (reload == 1) {
-            nextExists = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page + 1);
+            nextExists = ShowPlayer(playerName, civilizationName, &playerID, NULL, NULL, info.sessionID, page + 1);
             strcpy(civilizationName, "Civilization");
-            playerNr = ShowPlayer(playerName, civilizationName, &playerID, NULL, info.sessionID, page);
+            playerNr = ShowPlayer(playerName, civilizationName, &playerID, NULL, NULL, info.sessionID, page);
             reload = 0;
         }
 

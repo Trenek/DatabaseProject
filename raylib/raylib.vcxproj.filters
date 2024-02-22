@@ -34,9 +34,6 @@
     <Filter Include="Pliki źródłowe\additions\inputBox">
       <UniqueIdentifier>{95aae1f3-754b-4d14-92c9-1a537460189d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\query\GetTerrain">
-      <UniqueIdentifier>{69f76fd0-13b7-4b4f-bbf8-356123991e92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki nagłówkowe\GridTile">
       <UniqueIdentifier>{f3e44122-4711-4bbc-a82a-d0ee12dd8f35}</UniqueIdentifier>
     </Filter>
@@ -52,47 +49,11 @@
     <Filter Include="Pliki źródłowe\query\Player">
       <UniqueIdentifier>{c1c03008-f3c1-47b4-b275-e40ee4efcac3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\query\Player\RemovePlayer">
-      <UniqueIdentifier>{7084bfef-46e8-487f-90c6-b06e386fdfa2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Player\ShowPlayer">
-      <UniqueIdentifier>{37837e17-95a4-48f6-81f1-b77a767ae131}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Player\AddPlayer">
-      <UniqueIdentifier>{e045a5bb-054c-4117-9166-a9bd2b4a1c4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Player\AssignCivilization">
-      <UniqueIdentifier>{d6874119-b430-4049-800a-914a5ed2a39b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki źródłowe\query\User">
       <UniqueIdentifier>{a9df976c-ed0c-43bc-89ec-3ed9657de62d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\query\User\AddUser">
-      <UniqueIdentifier>{1d3f00c7-d81b-46b4-bc58-2728325d5a36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\User\GetUsers">
-      <UniqueIdentifier>{3fcb0846-28f9-40b5-b4ff-979073818551}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\User\LogIn">
-      <UniqueIdentifier>{e2ad2aeb-2075-4e46-940d-34a40eabd53a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Province">
-      <UniqueIdentifier>{52acbfb5-0397-46a4-8367-f7eda8e1f087}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Province\GetProvinces">
-      <UniqueIdentifier>{ee4780e9-859f-4d20-a23d-092330d48d94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Province\GetProvinceInformation">
-      <UniqueIdentifier>{3a3a28ba-f204-4f7f-8a91-efb978a713eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki źródłowe\query\Game Session">
       <UniqueIdentifier>{92ac534b-0eb0-4173-a081-81c28d6ba1e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Game Session\createGameSession">
-      <UniqueIdentifier>{52af4511-958f-4a23-a94f-40d440da4729}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\query\Game Session\GetGameSessions">
-      <UniqueIdentifier>{f12572ca-c902-4800-9fdd-5008916413ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="Pliki źródłowe\query\Session / Map">
       <UniqueIdentifier>{0b0b35c6-41a1-46bb-b8e7-5faa1739bea6}</UniqueIdentifier>
@@ -112,11 +73,17 @@
     <Filter Include="Pliki źródłowe\query\Map\GetDimensions">
       <UniqueIdentifier>{f9c83f50-57fe-49ce-8e39-1cd67cfba6c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\query\Game Session\GetCurrentDate">
-      <UniqueIdentifier>{32d1e8db-b1fa-43e6-989f-bfb802d212af}</UniqueIdentifier>
+    <Filter Include="Pliki źródłowe\query\Session / Map\Province">
+      <UniqueIdentifier>{52acbfb5-0397-46a4-8367-f7eda8e1f087}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\query\Game Session\CheckIfReady">
-      <UniqueIdentifier>{2706d25a-eb93-4ed7-9c11-e30b75cc44cd}</UniqueIdentifier>
+    <Filter Include="Pliki źródłowe\query\Session / Map\Province\GetProvinces">
+      <UniqueIdentifier>{ee4780e9-859f-4d20-a23d-092330d48d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\Session / Map\Province\GetProvinceInformation">
+      <UniqueIdentifier>{3a3a28ba-f204-4f7f-8a91-efb978a713eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\query\Terrain">
+      <UniqueIdentifier>{69f76fd0-13b7-4b4f-bbf8-356123991e92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +111,6 @@
     <ClCompile Include="register.c">
       <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
-    <ClCompile Include="AddUser.c">
-      <Filter>Pliki źródłowe\query\User\AddUser</Filter>
-    </ClCompile>
     <ClCompile Include="loadGame.c">
       <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
@@ -156,35 +120,20 @@
     <ClCompile Include="inputBox.c">
       <Filter>Pliki źródłowe\additions\inputBox</Filter>
     </ClCompile>
-    <ClCompile Include="GetUsers.c">
-      <Filter>Pliki źródłowe\query\User\GetUsers</Filter>
-    </ClCompile>
     <ClCompile Include="createGame.c">
       <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
     <ClCompile Include="login.c">
       <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
-    <ClCompile Include="logInQuery.c">
-      <Filter>Pliki źródłowe\query\User\LogIn</Filter>
-    </ClCompile>
-    <ClCompile Include="createGameSession.c">
-      <Filter>Pliki źródłowe\query\Game Session\createGameSession</Filter>
-    </ClCompile>
     <ClCompile Include="gameSetup.c">
       <Filter>Pliki źródłowe\state</Filter>
-    </ClCompile>
-    <ClCompile Include="getGameSessions.c">
-      <Filter>Pliki źródłowe\query\Game Session\GetGameSessions</Filter>
     </ClCompile>
     <ClCompile Include="mapDebug.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="GetTerrain.c">
-      <Filter>Pliki źródłowe\query\GetTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="GetProvinces.c">
-      <Filter>Pliki źródłowe\query\Province\GetProvinces</Filter>
+      <Filter>Pliki źródłowe\query\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="GridTileDef.c">
       <Filter>Pliki nagłówkowe\GridTile</Filter>
@@ -201,35 +150,65 @@
     <ClCompile Include="GetMaps.c">
       <Filter>Pliki źródłowe\query\Map\GetMaps</Filter>
     </ClCompile>
-    <ClCompile Include="ShowPlayer.c">
-      <Filter>Pliki źródłowe\query\Player\ShowPlayer</Filter>
-    </ClCompile>
-    <ClCompile Include="AddPlayer.c">
-      <Filter>Pliki źródłowe\query\Player\AddPlayer</Filter>
-    </ClCompile>
     <ClCompile Include="LoadingScreen.c">
       <Filter>Pliki źródłowe\additions\LoadingScreen</Filter>
-    </ClCompile>
-    <ClCompile Include="AssignCivilization.c">
-      <Filter>Pliki źródłowe\query\Player\AssignCivilization</Filter>
     </ClCompile>
     <ClCompile Include="getDimensions.c">
       <Filter>Pliki źródłowe\query\Map\GetDimensions</Filter>
     </ClCompile>
-    <ClCompile Include="CheckIfReady.c">
-      <Filter>Pliki źródłowe\query\Game Session\CheckIfReady</Filter>
-    </ClCompile>
     <ClCompile Include="play.c">
       <Filter>Pliki źródłowe\state</Filter>
     </ClCompile>
+    <ClCompile Include="AddUser.c">
+      <Filter>Pliki źródłowe\query\User</Filter>
+    </ClCompile>
+    <ClCompile Include="GetUsers.c">
+      <Filter>Pliki źródłowe\query\User</Filter>
+    </ClCompile>
+    <ClCompile Include="logInQuery.c">
+      <Filter>Pliki źródłowe\query\User</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowPlayer.c">
+      <Filter>Pliki źródłowe\query\Player</Filter>
+    </ClCompile>
     <ClCompile Include="RemovePlayer.c">
-      <Filter>Pliki źródłowe\query\Player\RemovePlayer</Filter>
+      <Filter>Pliki źródłowe\query\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AssignCivilization.c">
+      <Filter>Pliki źródłowe\query\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPlayer.c">
+      <Filter>Pliki źródłowe\query\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GetProvinces.c">
+      <Filter>Pliki źródłowe\query\Session / Map\Province</Filter>
     </ClCompile>
     <ClCompile Include="GetProvinceInformation.c">
-      <Filter>Pliki źródłowe\query\Province\GetProvinceInformation</Filter>
+      <Filter>Pliki źródłowe\query\Session / Map\Province</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckIfReady.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClCompile>
+    <ClCompile Include="createGameSession.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
     </ClCompile>
     <ClCompile Include="GetCurrentDate.c">
-      <Filter>Pliki źródłowe\query\Game Session\GetCurrentDate</Filter>
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClCompile>
+    <ClCompile Include="getGameSessions.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateCurrentDate.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildCity.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClCompile>
+    <ClCompile Include="GetCityConstructionDate.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClCompile>
+    <ClCompile Include="GetBuildingType.c">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,29 +230,14 @@
     <ClInclude Include="state.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="AddUser.h">
-      <Filter>Pliki źródłowe\query\User\AddUser</Filter>
-    </ClInclude>
     <ClInclude Include="inputBox.h">
       <Filter>Pliki źródłowe\additions\inputBox</Filter>
     </ClInclude>
-    <ClInclude Include="GetUsers.h">
-      <Filter>Pliki źródłowe\query\User\GetUsers</Filter>
-    </ClInclude>
-    <ClInclude Include="logInQuery.h">
-      <Filter>Pliki źródłowe\query\User\LogIn</Filter>
-    </ClInclude>
-    <ClInclude Include="createGameSession.h">
-      <Filter>Pliki źródłowe\query\Game Session\createGameSession</Filter>
-    </ClInclude>
-    <ClInclude Include="getGameSessions.h">
-      <Filter>Pliki źródłowe\query\Game Session\GetGameSessions</Filter>
-    </ClInclude>
-    <ClInclude Include="GetTerrain.h">
-      <Filter>Pliki źródłowe\query\GetTerrain</Filter>
+    <ClInclude Include="Terrain.h">
+      <Filter>Pliki źródłowe\query\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="GetProvinces.h">
-      <Filter>Pliki źródłowe\query\Province\GetProvinces</Filter>
+      <Filter>Pliki źródłowe\query\Session / Map\Province\GetProvinces</Filter>
     </ClInclude>
     <ClInclude Include="GridTileDef.h">
       <Filter>Pliki nagłówkowe\GridTile</Filter>
@@ -290,20 +254,11 @@
     <ClInclude Include="GetMaps.h">
       <Filter>Pliki źródłowe\query\Map\GetMaps</Filter>
     </ClInclude>
-    <ClInclude Include="ShowPlayer.h">
-      <Filter>Pliki źródłowe\query\Player\ShowPlayer</Filter>
-    </ClInclude>
-    <ClInclude Include="AddPlayer.h">
-      <Filter>Pliki źródłowe\query\Player\AddPlayer</Filter>
-    </ClInclude>
     <ClInclude Include="LoadingScreen.h">
       <Filter>Pliki źródłowe\additions\LoadingScreen</Filter>
     </ClInclude>
     <ClInclude Include="gameInformations.h">
       <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="AssignCivilization.h">
-      <Filter>Pliki źródłowe\query\Player\AssignCivilization</Filter>
     </ClInclude>
     <ClInclude Include="createCamera.h">
       <Filter>Pliki źródłowe\additions\createCamera</Filter>
@@ -311,17 +266,20 @@
     <ClInclude Include="getDimensions.h">
       <Filter>Pliki źródłowe\query\Map\GetDimensions</Filter>
     </ClInclude>
-    <ClInclude Include="CheckIfReady.h">
-      <Filter>Pliki źródłowe\query\Game Session\CheckIfReady</Filter>
-    </ClInclude>
-    <ClInclude Include="RemovePlayer.h">
-      <Filter>Pliki źródłowe\query\Player\RemovePlayer</Filter>
-    </ClInclude>
     <ClInclude Include="GetProvinceInformation.h">
-      <Filter>Pliki źródłowe\query\Province\GetProvinceInformation</Filter>
+      <Filter>Pliki źródłowe\query\Session / Map\Province\GetProvinceInformation</Filter>
     </ClInclude>
-    <ClInclude Include="GetCurrentDate.h">
-      <Filter>Pliki źródłowe\query\Game Session\GetCurrentDate</Filter>
+    <ClInclude Include="User.h">
+      <Filter>Pliki źródłowe\query\User</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Pliki źródłowe\query\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Province.h">
+      <Filter>Pliki źródłowe\query\Session / Map\Province</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSession.h">
+      <Filter>Pliki źródłowe\query\Game Session</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

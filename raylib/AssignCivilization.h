@@ -1,1 +1,0 @@
-void AssignCivilization(char* errorMessageOut, int playerID, int civilization, int gameSession);

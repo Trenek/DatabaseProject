@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 #include "query.h"
-#include "getGameSessions.h"
 
 static int getTerrainCount(SQLHANDLE SQLStatementHandle, void* message) {
 	int size = 0;

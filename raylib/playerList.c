@@ -5,7 +5,7 @@
 #include "state.h"
 
 #include "drawMenuElement.h"
-#include "GetUsers.h"
+#include "User.h"
 
 void playerList(enum state* state) {
     Color color = { .r = 100, .g = 100, .b = 100, .a = 255 };
