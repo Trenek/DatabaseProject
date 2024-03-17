@@ -1,3 +1,6 @@
+#ifndef GAMESESSION_H
+#define GAMESESSION_H
+
 struct gameSession {
 	int nr;
 	int id;
@@ -23,3 +26,6 @@ int UpdateCurrentDate(int sessionID);
 int BuildCity(char* errorMessageOut, int sessionID, int coordinateX, int coordinateY, const char* name);
 void GetCityConstructionDate(char* date, int sessionID, int coordinateX, int coordinateY);
 int GetBuildingType(int cityID, int typeID, int page, struct building* building);
+int UpdateCurrentDateBy10Days(int sessionID);
+
+#endif

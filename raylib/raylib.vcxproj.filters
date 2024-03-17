@@ -85,6 +85,9 @@
     <Filter Include="Pliki źródłowe\query\Terrain">
       <UniqueIdentifier>{69f76fd0-13b7-4b4f-bbf8-356123991e92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\state\play">
+      <UniqueIdentifier>{bdabb1de-4b89-4b89-8852-41d8e27603d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatbaseProject.c">
@@ -210,6 +213,27 @@
     <ClCompile Include="GetBuildingType.c">
       <Filter>Pliki źródłowe\query\Game Session</Filter>
     </ClCompile>
+    <ClCompile Include="cityBox.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
+    <ClCompile Include="provinceBox.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
+    <ClCompile Include="buildingBox.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
+    <ClCompile Include="countryBox.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
+    <ClCompile Include="errorLayer.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
+    <ClCompile Include="drawTopLayer.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
+    <ClCompile Include="map.c">
+      <Filter>Pliki źródłowe\state\play</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="query.h">
@@ -280,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="GameSession.h">
       <Filter>Pliki źródłowe\query\Game Session</Filter>
+    </ClInclude>
+    <ClInclude Include="play.h">
+      <Filter>Pliki źródłowe\state\play</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

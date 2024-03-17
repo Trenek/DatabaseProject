@@ -148,10 +148,15 @@
     <ClCompile Include="AddUser.c" />
     <ClCompile Include="AssignCivilization.c" />
     <ClCompile Include="BuildCity.c" />
+    <ClCompile Include="buildingBox.c" />
     <ClCompile Include="CheckIfReady.c" />
+    <ClCompile Include="cityBox.c" />
+    <ClCompile Include="countryBox.c" />
     <ClCompile Include="createGame.c" />
     <ClCompile Include="createGameSession.c" />
     <ClCompile Include="drawMenuElement.c" />
+    <ClCompile Include="drawTopLayer.c" />
+    <ClCompile Include="errorLayer.c" />
     <ClCompile Include="gameSetup.c" />
     <ClCompile Include="GetBuildingType.c" />
     <ClCompile Include="GetCityConstructionDate.c" />
@@ -170,6 +175,7 @@
     <ClCompile Include="LoadingScreen.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="logInQuery.c" />
+    <ClCompile Include="map.c" />
     <ClCompile Include="mapDebug.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="modifyBackgroundColor.c" />
@@ -178,6 +184,7 @@
     <ClCompile Include="loadGame.c" />
     <ClCompile Include="play.c" />
     <ClCompile Include="playerList.c" />
+    <ClCompile Include="provinceBox.c" />
     <ClCompile Include="ProvinceTextures.c" />
     <ClCompile Include="query.c" />
     <ClCompile Include="DatbaseProject.c" />
@@ -197,6 +204,7 @@
     <ClInclude Include="GetPoliticalDivision.h" />
     <ClInclude Include="GetProvinceInformation.h" />
     <ClInclude Include="GetProvinces.h" />
+    <ClInclude Include="play.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="GridTileDef.h" />
     <ClInclude Include="inputBox.h" />
