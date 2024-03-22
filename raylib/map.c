@@ -8,7 +8,7 @@
 #include "GridTileDef.h"
 #include "GameSession.h"
 
-void mapChange(union layers* topLayer, int* position, bool* updatePlayer, Camera2D camera1, enum state* state, RenderTexture screenCamera1, Rectangle splitScreenRect, bool* political, char playerName[], char civilizationName[], int* playerID, int* civilizationID, int* gold, struct gameInformations info) {
+void mapChange(union layers* topLayer, int* position, bool* updatePlayer, Camera2D* camera1, enum state* state, RenderTexture screenCamera1, Rectangle splitScreenRect, bool* political, char playerName[], char civilizationName[], int* playerID, int* civilizationID, int* gold, struct gameInformations info) {
     if (!topLayer->indivLayers.cityNameBox) {
         if (IsKeyPressed(KEY_A)) if (*position > 1) {
             *position -= 1;
@@ -21,16 +21,16 @@ void mapChange(union layers* topLayer, int* position, bool* updatePlayer, Camera
             *updatePlayer = true;
         }
 
-        if (IsKeyDown(KEY_LEFT)) camera1.target.x -= 1 / camera1.zoom;
-        if (IsKeyDown(KEY_RIGHT)) camera1.target.x += 1 / camera1.zoom;
-        if (IsKeyDown(KEY_DOWN)) camera1.target.y += 1 / camera1.zoom;
-        if (IsKeyDown(KEY_UP)) camera1.target.y -= 1 / camera1.zoom;
+        if (IsKeyDown(KEY_LEFT)) camera1->target.x -= 1 / camera1->zoom;
+        if (IsKeyDown(KEY_RIGHT)) camera1->target.x += 1 / camera1->zoom;
+        if (IsKeyDown(KEY_DOWN)) camera1->target.y += 1 / camera1->zoom;
+        if (IsKeyDown(KEY_UP)) camera1->target.y -= 1 / camera1->zoom;
 
-        if (IsKeyDown(KEY_Q)) camera1.zoom += 0.01f;
-        if (IsKeyDown(KEY_E)) camera1.zoom -= 0.01f;
-        camera1.zoom += (GetMouseWheelMove() * camera1.zoom / 16);
-        if (camera1.zoom < 0.1) camera1.zoom = 0.1f;
-        if (camera1.zoom > 10) camera1.zoom = 10.0f;
+        if (IsKeyDown(KEY_Q)) camera1->zoom += 0.01f;
+        if (IsKeyDown(KEY_E)) camera1->zoom -= 0.01f;
+        camera1->zoom += (GetMouseWheelMove() * camera1->zoom / 16);
+        if (camera1->zoom < 0.1) camera1->zoom = 0.1f;
+        if (camera1->zoom > 10) camera1->zoom = 10.0f;
 
         if (IsKeyPressed(KEY_P)) {
             Pause(state, PLAY, &screenCamera1, &splitScreenRect);

@@ -138,7 +138,7 @@ void play(enum state* state) {
             mapClick(&topLayer, height, width, radius, grid, &chosen, camera1, constructionDate, &provinceInfo, info);
         }
 
-        mapChange(&topLayer, &position, &updatePlayer, camera1, state, screenCamera1, splitScreenRect, &political, playerName, civilizationName, &playerID, &civilizationID, &gold, info);
+        mapChange(&topLayer, &position, &updatePlayer, &camera1, state, screenCamera1, splitScreenRect, &political, playerName, civilizationName, &playerID, &civilizationID, &gold, info);
     }
 
     free(civilizations);

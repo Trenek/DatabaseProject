@@ -30,5 +30,5 @@ void drawTopLayer(Rectangle topRec, char* playerName, int gold, int position, ch
 
 bool drawErrorLayer(union layers topLayer, char* errorMessage);
 
-void mapChange(union layers* topLayer, int* position, bool* updatePlayer, Camera2D camera1, enum state* state, RenderTexture screenCamera1, Rectangle splitScreenRect, bool* political, char playerName[], char civilizationName[], int* playerID, int* civilizationID, int* gold, struct gameInformations info);
+void mapChange(union layers* topLayer, int* position, bool* updatePlayer, Camera2D* camera1, enum state* state, RenderTexture screenCamera1, Rectangle splitScreenRect, bool* political, char playerName[], char civilizationName[], int* playerID, int* civilizationID, int* gold, struct gameInformations info);
 void mapClick(union layers* topLayer, int height, int width, int radius, struct GridTile** grid, Vector2* chosen, Camera2D camera1, char* constructionDate, struct provinceInformation* provinceInfo, struct gameInformations info);
