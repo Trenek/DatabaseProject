@@ -6,3 +6,4 @@ Change ScriptPath variable to a path to BuildAndTest.sql file on your device
 Next execute this file in SQLCMD mode
 Alternatively you can execute files that are refered to in BuildAndTest.sql file one by one
 Now, If everything is set up correctly you can use this application
+![image](https://github.com/Trenek/DatabaseProject/assets/70412758/c062a496-11f6-4ddf-bb53-93bfd33afc11)
